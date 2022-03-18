@@ -18,7 +18,7 @@ USE `questet` ;
 -- Table `questet`.`user`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `questet`.`user` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `First_name` VARCHAR(45) NULL,
   `Middle_name` VARCHAR(45) NULL,
   `Last_name` VARCHAR(45) NULL,
@@ -43,7 +43,7 @@ ENGINE = InnoDB;
 -- Table `questet`.`exam`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `questet`.`exam` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `Title` VARCHAR(45) NULL,
   `Total_Points` FLOAT NULL,
@@ -65,7 +65,7 @@ ENGINE = InnoDB;
 -- Table `questet`.`question`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `questet`.`question` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `Type` CHAR(1) NULL,
   `Data` VARCHAR(5000) NULL,
   `exam_id` INT NOT NULL,
@@ -83,7 +83,7 @@ ENGINE = InnoDB;
 -- Table `questet`.`answer`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `questet`.`answer` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `question_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_aswer_question1_idx` (`question_id` ASC) VISIBLE,
@@ -120,8 +120,11 @@ ENGINE = InnoDB;
 -- Table `questet`.`user_exam`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `questet`.`user_exam` (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `exam_id` INT NOT NULL,
   `user_id` INT NOT NULL,
+  `time_started` DATE NULL,
+  `time_finished` DATE NULL,
   INDEX `fk_exam_has_user_user1_idx` (`user_id` ASC) VISIBLE,
   INDEX `fk_exam_has_user_exam1_idx` (`exam_id` ASC) VISIBLE,
   CONSTRAINT `fk_exam_has_user_exam1`
