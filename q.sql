@@ -125,6 +125,7 @@ CREATE TABLE IF NOT EXISTS `questet`.`user_exam` (
   `user_id` INT NOT NULL,
   `time_started` DATE NULL,
   `time_finished` DATE NULL,
+  PRIMARY KEY (`id`),
   INDEX `fk_exam_has_user_user1_idx` (`user_id` ASC) VISIBLE,
   INDEX `fk_exam_has_user_exam1_idx` (`exam_id` ASC) VISIBLE,
   CONSTRAINT `fk_exam_has_user_exam1`
@@ -137,6 +138,7 @@ CREATE TABLE IF NOT EXISTS `questet`.`user_exam` (
     REFERENCES `questet`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
+
 ENGINE = InnoDB;
 
 
