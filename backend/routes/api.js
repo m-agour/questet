@@ -5,9 +5,12 @@ const router = express.Router();
 
 const db = require("../models");
 
+const User = db.user;
+
 /* GET users listing. */
-router.get("/", (req, res) => {
-    res.send("APIs working");
+router.get("/", async(req, res) => {
+    let data = await User.create({ name: "moahmed" });
+    res.json(data);
 });
 
 // TODO: verify token
