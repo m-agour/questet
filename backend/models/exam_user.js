@@ -1,26 +1,22 @@
 const Sequelize = require("sequelize");
 module.exports = function(sequelize, DataTypes) {
     return sequelize.define(
-        "exam", {
+        "user_exam", {
             id: {
                 autoIncrement: true,
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 primaryKey: true,
             },
-            userId: {
+            examId: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
+                references: {
+                    model: "exam",
+                    key: "id",
+                },
             },
-            title: {
-                type: DataTypes.STRING(45),
-                allowNull: true,
-            },
-            totalPoints: {
-                type: DataTypes.FLOAT,
-                allowNull: true,
-            },
-            userId1: {
+            userId: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 references: {
@@ -28,21 +24,17 @@ module.exports = function(sequelize, DataTypes) {
                     key: "id",
                 },
             },
-            public: {
-                type: DataTypes.TINYINT,
+            timeStarted: {
+                type: DataTypes.DATEONLY,
                 allowNull: true,
             },
-            duration: {
-                type: DataTypes.TIME,
-                allowNull: true,
-            },
-            startDate: {
+            timeFinished: {
                 type: DataTypes.DATEONLY,
                 allowNull: true,
             },
         }, {
             sequelize,
-            tableName: "exam",
+            tableName: "user_exam",
             timestamps: false,
             indexes: [{
                     name: "PRIMARY",
@@ -51,9 +43,14 @@ module.exports = function(sequelize, DataTypes) {
                     fields: [{ name: "id" }],
                 },
                 {
-                    name: "exam_user1_fk_idx",
+                    name: "exam_has_user_user1_fk_idx",
                     using: "BTREE",
-                    fields: [{ name: "userId1" }],
+                    fields: [{ name: "userId" }],
+                },
+                {
+                    name: "exam_has_user_exam1_fk_idx",
+                    using: "BTREE",
+                    fields: [{ name: "examId" }],
                 },
             ],
         }
