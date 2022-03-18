@@ -1,240 +1,204 @@
--- MySQL Workbench Forward Engineering
-
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
--- -----------------------------------------------------
--- Schema questet
--- -----------------------------------------------------
 
--- -----------------------------------------------------
--- Schema questet
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `questet` DEFAULT CHARACTER SET utf8 ;
-USE `questet` ;
+CREATE SCHEMA IF NOT EXISTS questet DEFAULT CHARACTER SET utf8 ;
+USE questet ;
   
--- -----------------------------------------------------
--- Table `questet`.`user`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `questet`.`user` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `First_name` VARCHAR(45) NULL,
-  `Middle_name` VARCHAR(45) NULL,
-  `Last_name` VARCHAR(45) NULL,
-  `DOB` DATE NULL,
-  `Email` VARCHAR(100) NULL,
-  `Password` VARCHAR(1024) NULL,
-  `Gender` CHAR(1) NULL,
-  `Current_position` VARCHAR(45) NULL,
-  `activated` TINYINT NULL,
-  `google` VARCHAR(45) NULL,
-  `facebock` VARCHAR(45) NULL,
-  `Country` VARCHAR(45) NULL,
-  `City` VARCHAR(45) NULL,
-  `Time_zone` INT NULL,
-  `online` TINYINT NULL,
-  `last_online` DATE NULL,
-  PRIMARY KEY (`id`))
+-- drop SCHEMA questet
+
+CREATE TABLE IF NOT EXISTS questet.user (
+	id INT NOT NULL AUTO_INCREMENT,
+    firstName VARCHAR(45) NULL,
+    middleName VARCHAR(45) NULL,
+    lastName VARCHAR(45) NULL,
+    DOB DATE NULL,
+    email VARCHAR(100) NULL,
+    pass VARCHAR(1024) NULL,
+    gender CHAR(1) NULL,
+    currentPosition VARCHAR(45) NULL,
+    activated TINYINT NULL,
+    google VARCHAR(45) NULL,
+    facebock VARCHAR(45) NULL,
+    country VARCHAR(45) NULL,
+    city VARCHAR(45) NULL,
+    timeZone INT NULL,
+    isOnline TINYINT NULL,
+    lastOnline DATE NULL,
+    
+    CONSTRAINT user_pk PRIMARY KEY (id)
+    )
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `questet`.`exam`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `questet`.`exam` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `user_id` INT NOT NULL,
-  `Title` VARCHAR(45) NULL,
-  `Total_Points` FLOAT NULL,
-  `user_id1` INT NOT NULL,
-  `Public` TINYINT NULL,
-  `Timed` INT NULL,
-  `scheduled` DATE NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_exam_user1_idx` (`user_id1` ASC) VISIBLE,
-  CONSTRAINT `fk_exam_user1`
-    FOREIGN KEY (`user_id1`)
-    REFERENCES `questet`.`user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+CREATE TABLE IF NOT EXISTS questet.exam (
+	id INT NOT NULL AUTO_INCREMENT,
+    userId INT NOT NULL,
+    title VARCHAR(45) NULL,
+    totalPoints FLOAT NULL,
+    userId1 INT NOT NULL,
+    public TINYINT NULL,
+    duration TIME NULL,
+    startDate DATE NULL,
+    
+    CONSTRAINT exam_pk PRIMARY KEY (id),
+    INDEX exam_user1_fk_idx (userId1 ASC) VISIBLE,
+    CONSTRAINT exam_user1_fk FOREIGN KEY (userId1) REFERENCES  questet.user (id)
+		ON DELETE NO ACTION
+        ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `questet`.`question`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `questet`.`question` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `Type` CHAR(1) NULL,
-  `Data` VARCHAR(5000) NULL,
-  `exam_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_question_exam1_idx` (`exam_id` ASC) VISIBLE,
-  CONSTRAINT `fk_question_exam1`
-    FOREIGN KEY (`exam_id`)
-    REFERENCES `questet`.`exam` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+CREATE TABLE IF NOT EXISTS questet.question (
+	id INT NOT NULL AUTO_INCREMENT,
+    questionType CHAR(1) NULL,
+    questionData VARCHAR(5000) NULL,
+    examId INT NOT NULL,
+    
+    
+    CONSTRAINT question_pk PRIMARY KEY (id),
+    INDEX question_exam1_fk_idx (examId ASC) VISIBLE,
+    CONSTRAINT question_exam1_fk FOREIGN KEY (examId) REFERENCES  questet.exam (id)
+		ON DELETE NO ACTION
+        ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `questet`.`answer`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `questet`.`answer` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `question_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_aswer_question1_idx` (`question_id` ASC) VISIBLE,
-  CONSTRAINT `fk_aswer_question1`
-    FOREIGN KEY (`question_id`)
-    REFERENCES `questet`.`question` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+CREATE TABLE IF NOT EXISTS questet.answer (
+	id INT NOT NULL AUTO_INCREMENT,
+    questionId INT NOT NULL,
+    
+    CONSTRAINT answer_pk PRIMARY KEY (id),
+    INDEX aswer_question1_fk_idx (questionId ASC) VISIBLE,
+    CONSTRAINT aswer_question1_fk FOREIGN KEY (questionId) REFERENCES  questet.question (id)
+		ON DELETE NO ACTION
+        ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `questet`.`correct`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `questet`.`correct` (
-  `question_id` INT NOT NULL,
-  `aswer_id` INT NOT NULL,
-  INDEX `fk_question_has_aswer_aswer1_idx` (`aswer_id` ASC) VISIBLE,
-  INDEX `fk_question_has_aswer_question1_idx` (`question_id` ASC) VISIBLE,
-  CONSTRAINT `fk_question_has_aswer_question1`
-    FOREIGN KEY (`question_id`)
-    REFERENCES `questet`.`question` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_question_has_aswer_aswer1`
-    FOREIGN KEY (`aswer_id`)
-    REFERENCES `questet`.`answer` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+CREATE TABLE IF NOT EXISTS questet.correct (
+	questionId INT NOT NULL,
+    answerId INT NOT NULL,
+    
+    INDEX question_has_aswer_aswer1_fk_idx (answerId ASC) VISIBLE,
+    INDEX question_has_aswer_question1_fk_idx (questionId ASC) VISIBLE,
+    
+    -- missing two primary key 
+    -- CONSTRAINT correct_pk PRIMARY KEY (questionId,answerId),
+    CONSTRAINT question_has_aswer_question1_fk FOREIGN KEY (questionId) REFERENCES  questet.question (id)
+		ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+    CONSTRAINT question_has_aswer_aswer1_fk FOREIGN KEY (answerId) REFERENCES  questet.answer (id)
+		ON DELETE NO ACTION
+        ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `questet`.`user_exam`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `questet`.`user_exam` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `exam_id` INT NOT NULL,
-  `user_id` INT NOT NULL,
-  `time_started` DATE NULL,
-  `time_finished` DATE NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_exam_has_user_user1_idx` (`user_id` ASC) VISIBLE,
-  INDEX `fk_exam_has_user_exam1_idx` (`exam_id` ASC) VISIBLE,
-  CONSTRAINT `fk_exam_has_user_exam1`
-    FOREIGN KEY (`exam_id`)
-    REFERENCES `questet`.`exam` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_exam_has_user_user1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `questet`.`user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-
+CREATE TABLE IF NOT EXISTS questet.user_exam (
+	id INT NOT NULL AUTO_INCREMENT,
+    examId INT NOT NULL,
+    userId INT NOT NULL,
+    timeStarted DATE NULL,
+    timeFinished DATE NULL,
+    
+    INDEX exam_has_user_user1_fk_idx (userId ASC) VISIBLE,
+    INDEX exam_has_user_exam1_fk_idx (examId ASC) VISIBLE,
+    
+    CONSTRAINT user_exam_pk PRIMARY KEY (id),
+    CONSTRAINT exam_has_user_exam1_fk FOREIGN KEY (examId) REFERENCES  questet.exam (id)
+		ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+    CONSTRAINT exam_has_user_user1_fk FOREIGN KEY (userId) REFERENCES  questet.user (id)
+		ON DELETE NO ACTION
+        ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `questet`.`report`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `questet`.`report` (
-  `user_id` INT NOT NULL,
-  `question_id` INT NOT NULL,
-  INDEX `fk_user_has_question_question1_idx` (`question_id` ASC) VISIBLE,
-  INDEX `fk_user_has_question_user1_idx` (`user_id` ASC) VISIBLE,
-  CONSTRAINT `fk_user_has_question_user1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `questet`.`user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_user_has_question_question1`
-    FOREIGN KEY (`question_id`)
-    REFERENCES `questet`.`question` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+CREATE TABLE IF NOT EXISTS questet.report (
+	id INT NOT NULL AUTO_INCREMENT,
+	userId INT NOT NULL,
+    questionId INT NOT NULL,
+    content VARCHAR(1025) NOT NULL,
+    filedOn DATE NOT NULL,
+    
+    INDEX user_has_question_question1_fk_idx (questionId ASC) VISIBLE,
+    INDEX user_has_question_user1_fk_idx (userId ASC) VISIBLE,
+    
+     -- missing also
+     CONSTRAINT report_pk PRIMARY KEY (id),
+     CONSTRAINT user_has_question_user1_fk FOREIGN KEY (userId) REFERENCES  questet.user (id)
+		ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+    CONSTRAINT user_has_question_question1_fk FOREIGN KEY (questionId) REFERENCES  questet.question (id)
+		ON DELETE NO ACTION
+        ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `questet`.`message`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `questet`.`message` (
-  `user_id` INT NOT NULL,
-  `user_id1` INT NOT NULL,
-  `data` VARCHAR(1025) NOT NULL,
-  `sent` DATE NULL,
-  `seen` TINYINT NULL,
-  INDEX `fk_user_has_user_user2_idx` (`user_id1` ASC) VISIBLE,
-  INDEX `fk_user_has_user_user1_idx` (`user_id` ASC) VISIBLE,
-  CONSTRAINT `fk_user_has_user_user1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `questet`.`user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_user_has_user_user2`
-    FOREIGN KEY (`user_id1`)
-    REFERENCES `questet`.`user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+CREATE TABLE IF NOT EXISTS questet.message (
+	userId INT NOT NULL,
+    userId1 INT NOT NULL,
+    content VARCHAR(1025) NOT NULL,
+    sentDate DATE NULL,
+    isSeen TINYINT NULL,
+    
+    INDEX user_has_user_user2_fk_idx (userId1 ASC) VISIBLE,
+    INDEX user_has_user_user1_fk_idx (userId ASC) VISIBLE,
+    
+    -- missing also
+     CONSTRAINT user_has_user_user1_fk FOREIGN KEY (userId) REFERENCES  questet.user (id)
+		ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+    CONSTRAINT user_has_user_user2_fk FOREIGN KEY (userId1) REFERENCES  questet.user (id)
+		ON DELETE NO ACTION
+        ON UPDATE NO ACTION)
+    
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `questet`.`tag`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `questet`.`tag` (
-  `Title` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`Title`))
+
+CREATE TABLE IF NOT EXISTS questet.tag (
+	title VARCHAR(45) NOT NULL,
+    
+    CONSTRAINT tag_pk PRIMARY KEY (title)
+    )
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `questet`.`exam_has_tag`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `questet`.`exam_has_tag` (
-  `exam_id` INT NOT NULL,
-  `tag_Title` VARCHAR(45) NOT NULL,
-  INDEX `fk_exam_has_tag_tag1_idx` (`tag_Title` ASC) VISIBLE,
-  INDEX `fk_exam_has_tag_exam1_idx` (`exam_id` ASC) VISIBLE,
-  CONSTRAINT `fk_exam_has_tag_exam1`
-    FOREIGN KEY (`exam_id`)
-    REFERENCES `questet`.`exam` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_exam_has_tag_tag1`
-    FOREIGN KEY (`tag_Title`)
-    REFERENCES `questet`.`tag` (`Title`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+
+CREATE TABLE IF NOT EXISTS questet.exam_has_tag (
+	examId INT NOT NULL,
+    tagTitle VARCHAR(45) NOT NULL,
+    
+    INDEX exam_has_tag_tag1_fk_idx (tagTitle ASC) VISIBLE,
+    INDEX exam_has_tag_exam1_fk_idx (examId ASC) VISIBLE,
+    
+    -- missing also
+     CONSTRAINT exam_has_tag_exam1_fk FOREIGN KEY (examId) REFERENCES  questet.exam (id)
+		ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+    CONSTRAINT exam_has_tag_tag1_fk FOREIGN KEY (tagTitle) REFERENCES  questet.tag (title)
+		ON DELETE NO ACTION
+        ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `questet`.`answered`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `questet`.`answered` (
-  `user_id` INT NOT NULL,
-  `question_id` INT NOT NULL,
-  INDEX `fk_user_has_question_question2_idx` (`question_id` ASC) VISIBLE,
-  INDEX `fk_user_has_question_user2_idx` (`user_id` ASC) VISIBLE,
-  CONSTRAINT `fk_user_has_question_user2`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `questet`.`user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_user_has_question_question2`
-    FOREIGN KEY (`question_id`)
-    REFERENCES `questet`.`question` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+
+CREATE TABLE IF NOT EXISTS questet.answered (
+	userExamId INT NOT NULL,
+    questionId INT NOT NULL,
+    
+    INDEX fk_user_has_question_question2_idx (questionId ASC) VISIBLE,
+    INDEX fk_user_has_question_user2_idx (userExamId ASC) VISIBLE,
+    
+    -- missing also
+     CONSTRAINT user_has_question_user2_fk FOREIGN KEY (userExamId) REFERENCES  questet.user_exam (id)
+		ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+    CONSTRAINT user_has_question_question2_fk FOREIGN KEY (questionId) REFERENCES  questet.question (id)
+		ON DELETE NO ACTION
+        ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
