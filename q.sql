@@ -62,16 +62,16 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `questet`.`quistion`
+-- Table `questet`.`question`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `questet`.`quistion` (
+CREATE TABLE IF NOT EXISTS `questet`.`question` (
   `id` INT NOT NULL,
   `Type` CHAR(1) NULL,
   `Data` VARCHAR(5000) NULL,
   `exam_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_quistion_exam1_idx` (`exam_id` ASC) VISIBLE,
-  CONSTRAINT `fk_quistion_exam1`
+  INDEX `fk_question_exam1_idx` (`exam_id` ASC) VISIBLE,
+  CONSTRAINT `fk_question_exam1`
     FOREIGN KEY (`exam_id`)
     REFERENCES `questet`.`exam` (`id`)
     ON DELETE NO ACTION
@@ -84,12 +84,12 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `questet`.`answer` (
   `id` INT NOT NULL,
-  `quistion_id` INT NOT NULL,
+  `question_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_aswer_quistion1_idx` (`quistion_id` ASC) VISIBLE,
-  CONSTRAINT `fk_aswer_quistion1`
-    FOREIGN KEY (`quistion_id`)
-    REFERENCES `questet`.`quistion` (`id`)
+  INDEX `fk_aswer_question1_idx` (`question_id` ASC) VISIBLE,
+  CONSTRAINT `fk_aswer_question1`
+    FOREIGN KEY (`question_id`)
+    REFERENCES `questet`.`question` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -99,16 +99,16 @@ ENGINE = InnoDB;
 -- Table `questet`.`correct`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `questet`.`correct` (
-  `quistion_id` INT NOT NULL,
+  `question_id` INT NOT NULL,
   `aswer_id` INT NOT NULL,
-  INDEX `fk_quistion_has_aswer_aswer1_idx` (`aswer_id` ASC) VISIBLE,
-  INDEX `fk_quistion_has_aswer_quistion1_idx` (`quistion_id` ASC) VISIBLE,
-  CONSTRAINT `fk_quistion_has_aswer_quistion1`
-    FOREIGN KEY (`quistion_id`)
-    REFERENCES `questet`.`quistion` (`id`)
+  INDEX `fk_question_has_aswer_aswer1_idx` (`aswer_id` ASC) VISIBLE,
+  INDEX `fk_question_has_aswer_question1_idx` (`question_id` ASC) VISIBLE,
+  CONSTRAINT `fk_question_has_aswer_question1`
+    FOREIGN KEY (`question_id`)
+    REFERENCES `questet`.`question` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_quistion_has_aswer_aswer1`
+  CONSTRAINT `fk_question_has_aswer_aswer1`
     FOREIGN KEY (`aswer_id`)
     REFERENCES `questet`.`answer` (`id`)
     ON DELETE NO ACTION
@@ -142,17 +142,17 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `questet`.`report` (
   `user_id` INT NOT NULL,
-  `quistion_id` INT NOT NULL,
-  INDEX `fk_user_has_quistion_quistion1_idx` (`quistion_id` ASC) VISIBLE,
-  INDEX `fk_user_has_quistion_user1_idx` (`user_id` ASC) VISIBLE,
-  CONSTRAINT `fk_user_has_quistion_user1`
+  `question_id` INT NOT NULL,
+  INDEX `fk_user_has_question_question1_idx` (`question_id` ASC) VISIBLE,
+  INDEX `fk_user_has_question_user1_idx` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `fk_user_has_question_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `questet`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_user_has_quistion_quistion1`
-    FOREIGN KEY (`quistion_id`)
-    REFERENCES `questet`.`quistion` (`id`)
+  CONSTRAINT `fk_user_has_question_question1`
+    FOREIGN KEY (`question_id`)
+    REFERENCES `questet`.`question` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -217,17 +217,17 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `questet`.`answered` (
   `user_id` INT NOT NULL,
-  `quistion_id` INT NOT NULL,
-  INDEX `fk_user_has_quistion_quistion2_idx` (`quistion_id` ASC) VISIBLE,
-  INDEX `fk_user_has_quistion_user2_idx` (`user_id` ASC) VISIBLE,
-  CONSTRAINT `fk_user_has_quistion_user2`
+  `question_id` INT NOT NULL,
+  INDEX `fk_user_has_question_question2_idx` (`question_id` ASC) VISIBLE,
+  INDEX `fk_user_has_question_user2_idx` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `fk_user_has_question_user2`
     FOREIGN KEY (`user_id`)
     REFERENCES `questet`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_user_has_quistion_quistion2`
-    FOREIGN KEY (`quistion_id`)
-    REFERENCES `questet`.`quistion` (`id`)
+  CONSTRAINT `fk_user_has_question_question2`
+    FOREIGN KEY (`question_id`)
+    REFERENCES `questet`.`question` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
