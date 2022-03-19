@@ -4,7 +4,7 @@ const userRouter = require("./user");
 const examRouter = require("./exam");
 
 /* GET home page. */
-// router.use("/user", userRouter);
+router.use("/user", userRouter);
 router.use("/exam", examRouter);
 
 router.get("/", (req, res) => {
