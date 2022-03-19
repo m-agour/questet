@@ -4,6 +4,7 @@
     "description": "",
     "main": "app.js",
     "scripts": {
+        "db": "node ./config/check_db.js ",
         "dev": "npx nodemon app.js -w ./"
     },
     "author": "",
