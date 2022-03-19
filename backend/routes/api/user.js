@@ -1,5 +1,6 @@
 const express = require("express");
-const db = require("../backend/models");
+const { dirname } = require("path");
+const db = require(dirname(require.main.filename) + "/models");
 const router = express.Router();
 
 /* GET home page. */
