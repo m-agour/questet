@@ -1,9 +1,14 @@
 const express = require("express");
-const IndexController = require("../controller/index");
-
 const router = express.Router();
+const userRouter = require("../routes/api/user");
+const examRouter = require("../routes/api/exam");
 
 /* GET home page. */
-router.get("/", IndexController.index);
+// router.use("/user", userRouter);
+router.use("/exam", examRouter);
+
+router.get("/", (req, res) => {
+    res.status(200).json("<h1>API working!</h1>");
+});
 
 module.exports = router;

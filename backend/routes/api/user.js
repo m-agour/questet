@@ -1,9 +1,9 @@
 const express = require("express");
-const usersRouter = require("./users");
-
+const db = require("../backend/models");
 const router = express.Router();
 
-const db = require("../models");
+/* GET home page. */
+router.get("/testing", (req, res) => {});
 
 const User = db.user;
 const Answer = db.Answer;
@@ -13,9 +13,4 @@ router.get("/", async(req, res) => {
     let data = await User.create({ name: "moahmed" });
     res.json(data);
 });
-
-// TODO: verify token
-
-// router.use("/users", usersRouter);
-
 module.exports = router;
