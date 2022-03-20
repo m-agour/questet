@@ -4,6 +4,6 @@ exports.isString = (data) => {
 };
 
 exports.isInt = (data) => {
-    if (data && (typeof data === "string" || data instanceof String)) return true;
+    if (data && (typeof data === "int" || data instanceof Int)) return true;
     return false;
 };
