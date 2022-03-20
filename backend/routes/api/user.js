@@ -12,6 +12,10 @@ router.get("/testing", (req, res) => {});
 router.get("/", userContoller.getUsers);
 router.get("/:id", userContoller.getUser);
 router.post("/", userContoller.createUser);
+router.get("/:id/online", userContoller.isOnline);
+router.post("/:id/online", userContoller.setOnline);
+router.get("/:id/activated", userContoller.isActivated);
+router.post("/:id/activate", userContoller.activate);
 
 router.post("/createUser", async(req, res) => {
     let name = req.body.firstName;

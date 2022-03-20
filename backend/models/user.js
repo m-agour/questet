@@ -42,6 +42,7 @@ module.exports = function(sequelize, DataTypes) {
             },
             activated: {
                 type: DataTypes.TINYINT,
+                defaultValue: false,
                 allowNull: true,
             },
             google: {
@@ -69,8 +70,9 @@ module.exports = function(sequelize, DataTypes) {
                 allowNull: true,
             },
             lastOnline: {
-                type: DataTypes.DATEONLY,
+                type: DataTypes.DATE,
                 allowNull: true,
+                defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
             },
         }, {
             sequelize,
