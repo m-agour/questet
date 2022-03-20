@@ -208,12 +208,10 @@ exports.isOnline = async(req, res) => {
             return res
                 .status(404)
                 .json({ success: false, data: "user does not exist." });
-        return res
-            .status(200)
-            .json({
-                success: true,
-                data: (Date.now() - user.lastOnline) / 1000 < 40,
-            });
+        return res.status(200).json({
+            success: true,
+            data: (Date.now() - user.lastOnline) / 1000 < 40,
+        });
     } catch (err) {
         return res.status(500).json({ success: false, data: err });
     }
@@ -255,7 +253,7 @@ exports.isActivated = async(req, res) => {
 
 // login user
 
-// get user by id (GET)
+// login user by email (POST)
 exports.login = async(req, res) => {
     try {
         let user = await User.findOne({ where: { email: req.body.email } });
