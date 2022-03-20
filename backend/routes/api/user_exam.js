@@ -9,7 +9,7 @@ const router = express.Router();
 router.get("/public", userExamContoller.getPublicExams);
 router.get("/public/:examId", userExamContoller.getPublicExams);
 
-router.get("/myExams/:examId", userExamContoller.getMyExams);
+router.get("/myExams/:examId", userExamContoller.getUserExams);
 
 
 

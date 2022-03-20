@@ -33,7 +33,7 @@ exports.getPublicExam = async(req, res) => {
 };
 
 // get user's exams  //exams he joined
-exports.getMyExams = async(req, res) => {
+exports.getUserExams = async(req, res) => {
     try {
         let exams = await Exam.findAll({where:{public:{[Op.ne]:null}}});//i dont know query yet
         if (!exames) return res.status(404).json("there is no available puplic exams ");
