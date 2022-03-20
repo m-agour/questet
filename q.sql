@@ -24,7 +24,6 @@ CREATE TABLE IF NOT EXISTS questet.user (
     country VARCHAR(45) NULL,
     city VARCHAR(45) NULL,
     timeZone INT NULL,
-    isOnline TINYINT NULL,
     lastOnline DATE NULL,
     
     CONSTRAINT user_pk PRIMARY KEY (id)
