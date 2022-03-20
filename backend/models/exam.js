@@ -8,10 +8,6 @@ module.exports = function(sequelize, DataTypes) {
                 allowNull: false,
                 primaryKey: true,
             },
-            userId: {
-                type: DataTypes.INTEGER,
-                allowNull: false,
-            },
             title: {
                 type: DataTypes.STRING(45),
                 allowNull: true,
@@ -20,7 +16,7 @@ module.exports = function(sequelize, DataTypes) {
                 type: DataTypes.FLOAT,
                 allowNull: true,
             },
-            userId1: {
+            userId: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 references: {
@@ -36,8 +32,8 @@ module.exports = function(sequelize, DataTypes) {
                 type: DataTypes.TIME,
                 allowNull: true,
             },
-            startDate: {
-                type: DataTypes.DATEONLY,
+            startsAt: {
+                type: DataTypes.DATE,
                 allowNull: true,
             },
         }, {
@@ -51,9 +47,9 @@ module.exports = function(sequelize, DataTypes) {
                     fields: [{ name: "id" }],
                 },
                 {
-                    name: "exam_user1_fk_idx",
+                    name: "exam_user_fk_idx",
                     using: "BTREE",
-                    fields: [{ name: "userId1" }],
+                    fields: [{ name: "userId" }],
                 },
             ],
         }

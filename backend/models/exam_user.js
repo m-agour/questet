@@ -25,11 +25,11 @@ module.exports = function(sequelize, DataTypes) {
                 },
             },
             timeStarted: {
-                type: DataTypes.DATEONLY,
+                type: DataTypes.DATE,
                 allowNull: true,
             },
             timeFinished: {
-                type: DataTypes.DATEONLY,
+                type: DataTypes.DATE,
                 allowNull: true,
             },
         }, {

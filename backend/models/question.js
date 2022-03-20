@@ -12,6 +12,10 @@ module.exports = function(sequelize, DataTypes) {
                 type: DataTypes.CHAR(1),
                 allowNull: true,
             },
+            points: {
+                type: DataTypes.FLOAT,
+                allowNull: true,
+            },
             questionData: {
                 type: DataTypes.STRING(5000),
                 allowNull: true,
