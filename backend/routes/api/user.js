@@ -1,6 +1,7 @@
 const express = require("express");
 const { dirname } = require("path");
-
+const userContoller = require(dirname(require.main.filename) +
+    "/controller/user.js");
 const db = require(dirname(require.main.filename) + "/models");
 
 const router = express.Router();
@@ -8,10 +9,9 @@ const router = express.Router();
 /* GET home page. */
 router.get("/testing", (req, res) => {});
 
-router.get("/getUsers", async(req, res) => {
-    let data = await db.user.findAll();
-    res.json(data);
-});
+router.get("/", userContoller.getUsers);
+router.get("/:id", userContoller.getUser);
+router.post("/", userContoller.createUser);
 
 router.post("/createUser", async(req, res) => {
     let name = req.body.firstName;

@@ -27,19 +27,15 @@ app.use("/api", apiRouter);
 // catch 404 and forward to error handler
 // app.use(notFind);
 
-// error handler
-app.use((err, req, res) => {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render("error");
-});
+// // error handler
+// app.use((err, req, res) => {
+//     // render the error page
+//     res.status(500);
+//     res.render("error");
+// });
 
 const port = process.env.PORT || "5000";
 
 app.listen(port, () => {
-  console.log(`Listen on ${port}`);
+    console.log(`Listen on ${port}`);
 });

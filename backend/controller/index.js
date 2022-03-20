@@ -1,4 +1,4 @@
-const index = (req, res, next) => {
+const index = (req, res) => {
     res.json({ title: "Express" });
 };
 
