@@ -5,7 +5,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 
 CREATE SCHEMA IF NOT EXISTS questet DEFAULT CHARACTER SET utf8 ;
 USE questet ;
-  
+
 -- drop SCHEMA questet
 
 CREATE TABLE IF NOT EXISTS questet.user (
@@ -24,7 +24,6 @@ CREATE TABLE IF NOT EXISTS questet.user (
     country VARCHAR(45) NULL,
     city VARCHAR(45) NULL,
     timeZone INT NULL,
-    isOnline TINYINT NULL,
     lastOnline DATE NULL,
     
     CONSTRAINT user_pk PRIMARY KEY (id)
@@ -37,14 +36,13 @@ CREATE TABLE IF NOT EXISTS questet.exam (
     userId INT NOT NULL,
     title VARCHAR(45) NULL,
     totalPoints FLOAT NULL,
-    userId1 INT NOT NULL,
     public TINYINT NULL,
     duration TIME NULL,
     startDate DATE NULL,
     
     CONSTRAINT exam_pk PRIMARY KEY (id),
-    INDEX exam_user1_fk_idx (userId1 ASC) VISIBLE,
-    CONSTRAINT exam_user1_fk FOREIGN KEY (userId1) REFERENCES  questet.user (id)
+    INDEX exam_user_fk_idx (userId ASC) VISIBLE,
+    CONSTRAINT exam_user_fk FOREIGN KEY (userId) REFERENCES  questet.user (id)
 		ON DELETE NO ACTION
         ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -125,9 +123,9 @@ CREATE TABLE IF NOT EXISTS questet.report (
     INDEX user_has_question_question1_fk_idx (questionId ASC) VISIBLE,
     INDEX user_has_question_user1_fk_idx (userId ASC) VISIBLE,
     
-     -- missing also
-     CONSTRAINT report_pk PRIMARY KEY (id),
-     CONSTRAINT user_has_question_user1_fk FOREIGN KEY (userId) REFERENCES  questet.user (id)
+    -- missing also
+    CONSTRAINT report_pk PRIMARY KEY (id),
+    CONSTRAINT user_has_question_user1_fk FOREIGN KEY (userId) REFERENCES  questet.user (id)
 		ON DELETE NO ACTION
         ON UPDATE NO ACTION,
     CONSTRAINT user_has_question_question1_fk FOREIGN KEY (questionId) REFERENCES  questet.question (id)
@@ -147,7 +145,7 @@ CREATE TABLE IF NOT EXISTS questet.message (
     INDEX user_has_user_user1_fk_idx (userId ASC) VISIBLE,
     
     -- missing also
-     CONSTRAINT user_has_user_user1_fk FOREIGN KEY (userId) REFERENCES  questet.user (id)
+    CONSTRAINT user_has_user_user1_fk FOREIGN KEY (userId) REFERENCES  questet.user (id)
 		ON DELETE NO ACTION
         ON UPDATE NO ACTION,
     CONSTRAINT user_has_user_user2_fk FOREIGN KEY (userId1) REFERENCES  questet.user (id)
@@ -175,7 +173,7 @@ CREATE TABLE IF NOT EXISTS questet.exam_has_tag (
     INDEX exam_has_tag_exam1_fk_idx (examId ASC) VISIBLE,
     
     -- missing also
-     CONSTRAINT exam_has_tag_exam1_fk FOREIGN KEY (examId) REFERENCES  questet.exam (id)
+    CONSTRAINT exam_has_tag_exam1_fk FOREIGN KEY (examId) REFERENCES  questet.exam (id)
 		ON DELETE NO ACTION
         ON UPDATE NO ACTION,
     CONSTRAINT exam_has_tag_tag1_fk FOREIGN KEY (tagTitle) REFERENCES  questet.tag (title)
@@ -193,7 +191,7 @@ CREATE TABLE IF NOT EXISTS questet.answered (
     INDEX fk_user_has_question_user2_idx (userExamId ASC) VISIBLE,
     
     -- missing also
-     CONSTRAINT user_has_question_user2_fk FOREIGN KEY (userExamId) REFERENCES  questet.user_exam (id)
+    CONSTRAINT user_has_question_user2_fk FOREIGN KEY (userExamId) REFERENCES  questet.user_exam (id)
 		ON DELETE NO ACTION
         ON UPDATE NO ACTION,
     CONSTRAINT user_has_question_question2_fk FOREIGN KEY (questionId) REFERENCES  questet.question (id)
