@@ -65,10 +65,6 @@ module.exports = function(sequelize, DataTypes) {
                 type: DataTypes.INTEGER,
                 allowNull: true,
             },
-            isOnline: {
-                type: DataTypes.TINYINT,
-                allowNull: true,
-            },
             lastOnline: {
                 type: DataTypes.DATE,
                 allowNull: true,
