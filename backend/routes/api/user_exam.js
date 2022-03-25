@@ -13,6 +13,7 @@ router.get("/public", userExamContoller.getPublicExams);
 router.get("/public/:examId", userExamContoller.getPublicExam);
 router.post("/takeExam", userExamContoller.takeExam);
 router.post("/finishExam", userExamContoller.finishExam);
+router.get("/takenExams/:userId", userExamContoller.getTakenExams);
 // router.patch("/takeExam", userExamContoller.getPublicExam);
 
 router.get("/myExams/:examId", userExamContoller.getMyExams);

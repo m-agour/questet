@@ -80,7 +80,18 @@ exports.finishExam = async(req, res) => {
         where: { id: req.body.userExamId },
     });
 
-    if (!user_exam) return res.status(404).json("user_exam not found!");
+    if (!user_exam[0]) return res.status(404).json("user_exam not found!");
 
     return res.status(200).json(user_exam);
+};
+
+exports.getTakenExams = async(req, res) => {
+    let user = await User.findOne({
+        where: { id: parseInt(req.params.userId) },
+    });
+    if (!user) return res.status(404).json("user not found!");
+    let user_exams = await db.user_exam.findAll({
+        where: { userId: req.params.userId },
+    });
+    return res.status(200).json(user_exams);
 };
