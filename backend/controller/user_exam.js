@@ -60,7 +60,7 @@ exports.takeExam = async(req, res) => {
     });
     if (!user) return res.status(404).json("user not found!");
     let exam = await User.findOne({
-        where: { id: parseInt(req.params.examId) },
+        where: { id: parseInt(req.body.examId) },
     });
     if (!exam) return res.status(404).json("exam not found!");
 
@@ -69,6 +69,18 @@ exports.takeExam = async(req, res) => {
         examId: req.body.examId,
         timeStarted: Date.now(),
     });
+
+    return res.status(200).json(user_exam);
+};
+
+exports.finishExam = async(req, res) => {
+    let user_exam = await db.user_exam.update({
+        timeFinished: Date.now(),
+    }, {
+        where: { id: req.body.userExamId },
+    });
+
+    if (!user_exam) return res.status(404).json("user_exam not found!");
 
     return res.status(200).json(user_exam);
 };

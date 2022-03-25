@@ -251,8 +251,6 @@ exports.isActivated = async(req, res) => {
     }
 };
 
-// login user
-
 // login user by email (POST)
 exports.login = async(req, res) => {
     try {
