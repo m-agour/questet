@@ -25,12 +25,21 @@ module.exports = function(sequelize, DataTypes) {
                 },
             },
             content: {
-                type: DataTypes.STRING(1025),
+                type: DataTypes.STRING(5000),
+                allowNull: false,
+            },
+            feedBack: {
+                type: DataTypes.STRING(5000),
                 allowNull: false,
             },
             filedOn: {
-                type: DataTypes.DATEONLY,
-                allowNull: false,
+                type: DataTypes.DATE,
+                allowNull: true,
+                defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+            },
+            seen: {
+                type: DataTypes.TINYINT,
+                defaultValue: false,
             },
         }, {
             sequelize,

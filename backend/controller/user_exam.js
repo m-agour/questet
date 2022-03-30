@@ -36,7 +36,7 @@ exports.getPublicExam = async(req, res) => {
     }
 };
 
-// get user's exams  //exams he joined
+// get user's exams he joined
 exports.getMyExams = async(req, res) => {
     try {
         let exams = await Exam.findAll({

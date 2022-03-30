@@ -49,7 +49,7 @@ module.exports = function(sequelize, DataTypes) {
                 type: DataTypes.STRING(45),
                 allowNull: true,
             },
-            facebock: {
+            facebook: {
                 type: DataTypes.STRING(45),
                 allowNull: true,
             },
