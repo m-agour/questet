@@ -10,7 +10,6 @@ router.get("/", (req, res) => {
     res.status(200).json("user_exam API is working");
 });
 router.get("/public/:examId", userExamContoller.getPublicExam);
-router.get("/public", userExamContoller.getPublicExams);
 router.post("/takeExam", userExamContoller.takeExam);
 router.post("/finishExam", userExamContoller.finishExam);
 router.get("/takenExams/:userId", userExamContoller.getTakenExams);

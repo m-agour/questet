@@ -7,20 +7,6 @@ const Exam = db.exam;
 
 /* first public exams from root */ // NOT TESTED YET
 
-// get Public exams
-exports.getPublicExams = async(req, res) => {
-    try {
-        let exams = await Exam.findAll({ where: { public: true } });
-        if (!exames)
-            return res
-                .status(404)
-                .json({ success: false, data: "there is no available puplic exams " });
-        return res.status(200).json({ success: true, data: exams });
-    } catch (err) {
-        return res.status(500).json({ success: false, data: err });
-    }
-};
-
 // get public exam by id (GET)
 exports.getPublicExam = async(req, res) => {
     try {
