@@ -16,6 +16,14 @@ module.exports = function(sequelize, DataTypes) {
                     key: "id",
                 },
             },
+            examinerId: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                references: {
+                    model: "user",
+                    key: "id",
+                },
+            },
             questionId: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
@@ -30,7 +38,7 @@ module.exports = function(sequelize, DataTypes) {
             },
             feedBack: {
                 type: DataTypes.STRING(5000),
-                allowNull: false,
+                allowNull: true,
             },
             filedOn: {
                 type: DataTypes.DATE,
@@ -60,6 +68,11 @@ module.exports = function(sequelize, DataTypes) {
                     name: "user_has_question_user1_fk_idx",
                     using: "BTREE",
                     fields: [{ name: "userId" }],
+                },
+                {
+                    name: "user_has_question_user2_fk_idx",
+                    using: "BTREE",
+                    fields: [{ name: "examinerId" }],
                 },
             ],
         }

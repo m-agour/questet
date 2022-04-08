@@ -1,6 +1,4 @@
 const { dirname } = require("path");
-var validator = require("validator");
-var bcrypt = require("bcrypt");
 const db = require(dirname(require.main.filename) + "/models");
 const User = db.user;
 const Exam = db.exam;

@@ -1,18 +1,15 @@
 const express = require("express");
 const { dirname } = require("path");
-const userContoller = require(dirname(require.main.filename) +
-    "/controller/user.js");
+const reportController = require(dirname(require.main.filename) +
+    "/controller/report.js");
 
 const router = express.Router();
 
 /* GET home page. */
-router.get("/", userContoller.getUsers);
-router.post("/", userContoller.createUser);
-router.get("/:id", userContoller.getUser);
-router.patch("/:id", userContoller.updateUser);
-router.get("/:id/online", userContoller.isOnline);
-router.post("/:id/online", userContoller.setOnline);
-router.get("/:id/activated", userContoller.isActivated);
-router.post("/:id/activate", userContoller.activate);
+router.post("/", reportController.fileReport);
+router.get("/:reportId", reportController.getReport);
+router.get("/recieved/:userId", reportController.getRecievedReports);
+router.get("/filed/:userId", reportController.getFiledReports);
+router.post("/seen/:reportId", reportController.setReportSeen);
 
 module.exports = router;
