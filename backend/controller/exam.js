@@ -12,9 +12,8 @@ exports.createExam = async (req, res) => {
   if (!req.body.userId)
     return res
       .status(400)
-      .json({ success: false, data: "missing email userId." });
+      .json({ success: false, data: "missing userId." });
   let exist = await User.count({ where: { id: req.body.userId } });
-  console.log(exist);
 
   let exam = await Exam.create({
     title: req.body.title,
