@@ -1,20 +1,16 @@
 const Sequelize = require("sequelize");
 module.exports = function(sequelize, DataTypes) {
     return sequelize.define(
-        "user_exam", {
+        "group", {
             id: {
                 autoIncrement: true,
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 primaryKey: true,
             },
-            examId: {
-                type: DataTypes.INTEGER,
-                allowNull: false,
-                references: {
-                    model: "exam",
-                    key: "id",
-                },
+            title: {
+                type: DataTypes.STRING(45),
+                allowNull: true,
             },
             userId: {
                 type: DataTypes.INTEGER,
@@ -24,17 +20,21 @@ module.exports = function(sequelize, DataTypes) {
                     key: "id",
                 },
             },
-            timeStarted: {
-                type: DataTypes.DATE,
+            public: {
+                type: DataTypes.TINYINT,
                 allowNull: true,
             },
-            timeFinished: {
+            duration: {
+                type: DataTypes.TIME,
+                allowNull: true,
+            },
+            startsAt: {
                 type: DataTypes.DATE,
                 allowNull: true,
             },
         }, {
             sequelize,
-            tableName: "user_exam",
+            tableName: "exam",
             timestamps: false,
             indexes: [{
                     name: "PRIMARY",
@@ -43,14 +43,9 @@ module.exports = function(sequelize, DataTypes) {
                     fields: [{ name: "id" }],
                 },
                 {
-                    name: "exam_has_user_user1_fk_idx",
+                    name: "exam_user_fk_idx",
                     using: "BTREE",
                     fields: [{ name: "userId" }],
-                },
-                {
-                    name: "exam_has_user_exam1_fk_idx",
-                    using: "BTREE",
-                    fields: [{ name: "examId" }],
                 },
             ],
         }
