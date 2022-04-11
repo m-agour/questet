@@ -5,8 +5,8 @@ const questionContoller = require(dirname(require.main.filename) +
 const router = express.Router();
 
 router.post("/", questionContoller.createQuestion);
-router.post("/:id", questionContoller.editQuestion);
+router.patch("/:id", questionContoller.editQuestion);
 router.post("/delete/:id", questionContoller.deleteQuestion);
-
+router.get("/:id", questionContoller.getQuestion);
 
 module.exports = router;

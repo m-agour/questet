@@ -56,7 +56,7 @@ exports.createQuestion = async(req, res) => {
 };
 
 
-// edit question (POST)
+// edit question (PATCH)
 exports.editQuestion = async(req , res) => {
     // check if question exist
     let question = await Question.count({ where: { id: parseInt(req.params.id) } });
@@ -66,35 +66,26 @@ exports.editQuestion = async(req , res) => {
             .status(404)
             .json({ success: false, data: "question does not exist." });
     
-    if (!req.body.examId)
-        return res.status(400).json({ success: false, data: "missing examId." });
+    if (req.body.examId)
+        {
+        let exam = await Exam.count({
+            where: {
+                id: req.body.examId,
+            },
+        });
+    
+        console.log(exam);
+        if (!exam)
+            return res
+                .status(404)
+                .json({ success: false, data: "exam does not exist." });
+    }
 
-    let exam = await Exam.count({
-        where: {
-            id: req.body.examId,
-        },
-    });
-
-    console.log(exam);
-    if (!exam)
-        return res
-            .status(404)
-            .json({ success: false, data: "exam does not exist." });
-
-    if (!req.body.questionData)
-        return res
-            .status(400)
-            .json({ success: false, data: "missing questionData." });
-
-    if (!req.body.questionType)
-        return res
-            .status(400)
-            .json({ success: false, data: "missing questionType." });
-
-    if (!["M", "N", "T"].includes(req.body.questionType))
-        return res
-            .status(400)
-            .json({ success: false, data: "questionType must be 'm' or 'n' or 't'" });
+    if (req.body.questionType)
+        if (!["M", "N", "T"].includes(req.body.questionType))
+            return res
+                .status(400)
+                .json({ success: false, data: "questionType must be 'M' or 'N' or 'T'" });
     if (
         req.body.points &&
         !(utils.isFloat(req.body.points) || utils.isInt(req.body.points))
@@ -136,7 +127,21 @@ exports.deleteQuestion = async(req , res) => {
 
 };
 
+// get question by id (GET)
+exports.getQuestion = async(req, res) => {
+    try {
+        let question = await Question.findOne({ where: { id: parseInt(req.params.id) } });
+        if (!question)
+            return res
+                .status(404)
+                .json({ success: false, data: "question does not exist." });
+        return res.status(200).json({ success: true, data: question });
+    } catch (err) {
+        return res.status(500).json({ success: false, data: err });
+    }
+};
+
 // TODO: edit question   done
 // delete question     done
-// get question
+// get question     done
 //
