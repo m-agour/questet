@@ -93,7 +93,7 @@ exports.createUser = async(req, res) => {
     let user = await User.create(userData);
     if (!user)
         return res
-            .status(404)
+            .status(500)
             .json({ success: false, data: "could not create user" });
     return res.status(200).json({ success: true, data: user });
 };

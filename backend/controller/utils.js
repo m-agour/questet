@@ -3,12 +3,10 @@ exports.isString = (data) => {
     return false;
 };
 
-exports.isInt = (data) => {
-    if (data && (typeof data === "int" || data instanceof Int)) return true;
-    return false;
+exports.isInt = (n) => {
+    return Number(n) === n && n % 1 === 0;
 };
 
-exports.isFloat = (data) => {
-    if (data && (typeof data === "float" || data instanceof Float)) return true;
-    return false;
+exports.isFloat = (n) => {
+    return Number(n) === n && n % 1 !== 0;
 };
