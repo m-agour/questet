@@ -99,7 +99,7 @@ exports.getEquations = async (req, res) => {
     where: { examId: 20 }, // 20 => is just example
   });
   return res.json(CountPoints);
-};
+}; 
 
 // let questions = await Question.findAll({
 //   where: { examId: exam.id },

@@ -182,7 +182,7 @@ exports.updateUser = async(req, res) => {
         return res
             .status(400)
             .json({ success: false, data: "could not update user data" });
-    return res.status(200).json({ success: false, data: "user updated!" });
+    return res.status(200).json({ success: true, data: "user updated!" });
 };
 
 // set user online status (SET by id)
