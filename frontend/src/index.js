@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App'; 
+import './index.css';
+import App from './App';
+import Login from './project/Login.jsx';
+import   {BrowserRouter as Router, Route ,Switch, link,redirect } from 'react-router-dom';
+import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+ReactDOM.render(<App/>, document.getElementById("root"))
+// ReactDOM.render(<Login/>, document.getElementById("root"))
 
-
+reportWebVitals();

@@ -1,8 +1,25 @@
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+import Login from "./project/Login";
+import Home from "./project/home";
 
-function App() {
+
+export default function App() {
   return (
-    <h1>Hello React</h1>
+    <>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={Login} />  
+          <Route path="/home" component={Home} />
+          <Redirect to="/"/>
+        </Switch>
+      </Router>
+    </>
   );
 }
+  
 
-export default App;
