@@ -16,6 +16,10 @@ module.exports = function(sequelize, DataTypes) {
                     key: "id",
                 },
             },
+            correct: {
+                type: DataTypes.TINYINT,
+                allowNull: true,
+            },
         }, {
             sequelize,
             tableName: "answer",

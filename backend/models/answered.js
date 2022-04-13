@@ -18,6 +18,14 @@ module.exports = function(sequelize, DataTypes) {
                     key: "id",
                 },
             },
+            answerId: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                references: {
+                    model: "answer",
+                    key: "id",
+                },
+            },
         }, {
             sequelize,
             tableName: "answered",
@@ -31,6 +39,11 @@ module.exports = function(sequelize, DataTypes) {
                     name: "fk_user_has_question_user2_idx",
                     using: "BTREE",
                     fields: [{ name: "userExamId" }],
+                },
+                {
+                    name: "fk_user_has_answer_user2_idx",
+                    using: "BTREE",
+                    fields: [{ name: "answerId" }],
                 },
             ],
         }
