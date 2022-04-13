@@ -5,8 +5,8 @@ import {
   Redirect,
 } from "react-router-dom";
 import Login from "./project/Login";
-import Home from "./project/home";
-
+import Home from "./project/home/index";
+import Profile from "./project/profile/profile";
 
 export default function App() {
   return (
@@ -15,6 +15,7 @@ export default function App() {
         <Switch>
           <Route exact path="/" component={Login} />  
           <Route path="/home" component={Home} />
+          <Route path="/profile" component={Profile} />
           <Redirect to="/"/>
         </Switch>
       </Router>

@@ -38,15 +38,15 @@ class Login extends React.Component {
       console.log(error);
     });  
   }
-   
-  signup = (event) =>{
+
+  signup = (event) =>{    
     let data = {
         email: this.email.current.value,
         firstName: this.firstName.current.value,
         password: this.password.current.value
   }
   event.preventDefault();
-
+  
   console.log(data);
     axios.post('http://127.0.0.1:5000/api/user', data)
     .then((response) => {
@@ -91,7 +91,7 @@ class Login extends React.Component {
                                   <input  type="password" name="logpass" ref={this.loginPassword} className="form-style" placeholder="Your Password" id="logpass" autoComplete="off" />
                                   <i className="input-icon uil uil-lock-alt" />
                                 </div>
-                                <button herf ="/home"  class="button-49" type='submit' >Submit</button>
+                                <button herf ="/home"  className="button-49" type='submit' >Login</button>
                                 <p className="mb-0 mt-4 text-center"><a href="#0" className="link">Forgot your password?</a></p>
                                 </form>
                               </div>
