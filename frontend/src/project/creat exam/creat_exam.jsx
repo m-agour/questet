@@ -74,7 +74,7 @@ class Question extends React.Component {
                 {
                             this.state.answers.map((item, index)=>{
                               return(
-                                <div key={index}> {item} </div>
+                                <div key={index}> <Answer ref={this.answers}/> </div>
                               );
                             })
                           }</div>
@@ -100,7 +100,7 @@ class Creat_exam extends React.Component {
   count = 1
   email = React.createRef();
   state = {
-    questions: [<Question/>]
+    questions: [this.q1]
   }
 
   addQuestion = () => {
@@ -118,7 +118,7 @@ class Creat_exam extends React.Component {
   }
 
   submit = ()=>{
-      console.log(this.state.questions)
+      console.log(this.questions.current.state.answers[0].data.current.value)
   }
       
     render() { 
@@ -154,7 +154,7 @@ class Creat_exam extends React.Component {
                           {
                             this.state.questions.map((item, index)=>{
                               return(
-                                <div ref={this.questions} key={index}> {item} </div>
+                                <div key={index}> <Question id='1' ref={this.questions}/> </div>
                               );
                             })
                           }
