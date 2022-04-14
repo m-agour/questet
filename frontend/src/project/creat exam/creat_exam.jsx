@@ -68,6 +68,7 @@ let handleSubmit = (event) => {
                             <button type="button"    className="btn" onClick={() => removeFormFields()}  style={{background: '#c90101', fontWeight: 'bold', color: 'rgb(255,255,255)', width: '100%', height: '51px'}} >Remove question</button> 
                              <button   className="btn" type="button" onClick={() => addFormFields()} style={{background: '#00a210', fontWeight: 'bold', color: 'rgb(255,255,255)', width: '100%', height: '51px'}}>Add question</button></div>
                           </div>
+                           <div className="text-center" style={{paddingTop: '67px', paddingBottom: '160px'}}><button className="btn" type="button" onClick={handleSubmit}  style={{background: '#3a88b6', height: '60px', width: '170.025px', fontWeight: 'bold', fontSize: '16px'}}>Create Exam</button></div>
                         </section>
                       </main>
                       <footer className="page-footer dark">

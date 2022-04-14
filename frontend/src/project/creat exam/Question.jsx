@@ -32,7 +32,7 @@ let handleSubmit = (event) => {
         <div className="col">
           <div className="card" style={{borderRadius: '8px'}}>
             <div  className="card-body" style={{paddingLeft: '54px', paddingTop: '20px', paddingBottom: '20px'}}>
-              <h4 className="d-flex align-items-center card-title" style={{fontSize: '24px', paddingBottom: '0px', marginBottom: '0px', fontWeight: 'bold', marginTop: '19px'}}>Question:&nbsp;<textarea  className="d-flex align-items-center" style={{width: '80%', marginLeft: '21px', height: '43.6px', paddingLeft: '13px', paddingTop: '4px'}} placeholder="Type your question." required defaultValue={""} /><br /><br /></h4>
+              <h4 className="d-flex align-items-center card-title" style={{fontSize: '24px', paddingBottom: '0px', marginBottom: '0px', fontWeight: 'bold', marginTop: '19px'}}>Question:&nbsp;<textarea    className="d-flex align-items-center" style={{width: '80%', marginLeft: '21px', height: '43.6px', paddingLeft: '13px', paddingTop: '4px'}} placeholder="Type your question." required defaultValue={""} /><br /><br /></h4>
               <div className="d-flex justify-content-center align-items-center" style={{paddingBottom: '19px'}}>
                 <h4  className="d-flex align-items-center" style={{fontSize: '18px', paddingBottom: '0px', marginTop: '27px', fontWeight: 'bold', color: 'var(--bs-red)'}}>Upload Image&nbsp; &nbsp;&nbsp;<br /><br /></h4><input type="file" />
               </div>

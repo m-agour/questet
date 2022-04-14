@@ -1,22 +1,17 @@
 import React, { Component, useState   } from 'react';
 
+export class Answer extends React.Component {
+  state = {
+          selectedCode: '',
+          selectedLanguage: 1,
+      }
 
-function Answer(){
-    const [formValues, setFormValues] = useState([{ name: ""}])
-    
-    let handleChange = (i, e) => {
-      let newFormValues = [...formValues];
-      newFormValues[i][e.target.name] = e.target.value;
-      setFormValues(newFormValues);
-    }
-
-  
-  let handleSubmit = (event) => {
-      event.preventDefault();
-      alert(JSON.stringify(formValues));
+  handleLangChange = () => {
+      var lang = this.dropdown.value;
+      this.props.onSelectLanguage(lang);            
   }
     
-   
+  render() {
     return(  
         <div   >
         <div   style={{marginBottom: '19px', marginTop: '6px'}}>
@@ -35,7 +30,6 @@ function Answer(){
         <div style={{marginBottom: '19px', marginTop: '6px'}}>
         </div>
       </div>
-      )
+      )}
    
-}
-export default Answer;
+} 
