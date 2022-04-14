@@ -16,8 +16,12 @@ module.exports = function(sequelize, DataTypes) {
                     key: "id",
                 },
             },
+            answerData: {
+                type: DataTypes.STRING(5000),
+                allowNull: true,
+            },
             correct: {
-                type: DataTypes.TINYINT,
+                type: DataTypes.CHAR(1),
                 allowNull: true,
             },
         }, {
