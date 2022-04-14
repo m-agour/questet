@@ -5,7 +5,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'user_exam',
+        model: 'take_exam',
         key: 'id'
       }
     },
