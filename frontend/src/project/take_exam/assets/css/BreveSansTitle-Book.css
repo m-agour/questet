@@ -1,0 +1,7 @@
+@font-face {
+	font-family: 'BreveSansTitle-Book';
+	src: url(../../assets/fonts/BreveSansTitle-Book.woff2) format('woff2'),
+	url(../../assets/fonts/BreveSansTitle-Book.woff) format('woff');
+	font-weight: normal;
+	font-style: normal;
+}

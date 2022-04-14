@@ -1,0 +1,79 @@
+@font-face {
+	font-family: 'Hurme Geometric Sans 1';
+	src: url(../../assets/fonts/HurmeGeometricSans1-Thin.woff2) format('woff2'),
+	url(../../assets/fonts/HurmeGeometricSans1-Thin.woff) format('woff');
+	font-weight: 100;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Hurme Geometric Sans 1';
+	src: url(../../assets/fonts/HurmeGeometricSans1-ThinObl.woff2) format('woff2'),
+	url(../../assets/fonts/HurmeGeometricSans1-ThinObl.woff) format('woff');
+	font-weight: 100;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'Hurme Geometric Sans 1';
+	src: url(../../assets/fonts/HurmeGeometricSans1-Light.woff2) format('woff2'),
+	url(../../assets/fonts/HurmeGeometricSans1-Light.woff) format('woff');
+	font-weight: 300;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Hurme Geometric Sans 1';
+	src: url(../../assets/fonts/HurmeGeometricSans1-LightObl.woff2) format('woff2'),
+	url(../../assets/fonts/HurmeGeometricSans1-LightObl.woff) format('woff');
+	font-weight: 300;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'Hurme Geometric Sans 1';
+	src: url(../../assets/fonts/HurmeGeometricSans1-Hairline.woff2) format('woff2'),
+	url(../../assets/fonts/HurmeGeometricSans1-Hairline.woff) format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Hurme Geometric Sans 1';
+	src: url(../../assets/fonts/HurmeGeometricSans1-Regular.woff2) format('woff2'),
+	url(../../assets/fonts/HurmeGeometricSans1-Regular.woff) format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Hurme Geometric Sans 1';
+	src: url(../../assets/fonts/HurmeGeometricSans1-HairlineObl.woff2) format('woff2'),
+	url(../../assets/fonts/HurmeGeometricSans1-HairlineObl.woff) format('woff');
+	font-weight: normal;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'Hurme Geometric Sans 1';
+	src: url(../../assets/fonts/HurmeGeometricSans1-RegularObl.woff2) format('woff2'),
+	url(../../assets/fonts/HurmeGeometricSans1-RegularObl.woff) format('woff');
+	font-weight: normal;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'Hurme Geometric Sans 1';
+	src: url(../../assets/fonts/HurmeGeometricSans1-SemiBold.woff2) format('woff2'),
+	url(../../assets/fonts/HurmeGeometricSans1-SemiBold.woff) format('woff');
+	font-weight: 600;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Hurme Geometric Sans 1';
+	src: url(../../assets/fonts/HurmeGeometricSans1-SemiBoldObl.woff2) format('woff2'),
+	url(../../assets/fonts/HurmeGeometricSans1-SemiBoldObl.woff) format('woff');
+	font-weight: 600;
+	font-style: italic;
+}
