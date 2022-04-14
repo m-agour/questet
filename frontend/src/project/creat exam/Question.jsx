@@ -1,43 +1,31 @@
-import React, { Component } from 'react';
-import { useEffect } from 'react';
-import { useForm, useFieldArray } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
-import Answer from './Answer';
+import React, { Component, useState   } from 'react';
 
-class Question  extends Component {
-  constructor(props) {
-    super(props)
-    this.state = { 
-       formValues: [{ name: "" }]
-     };
-    this.handleSubmit = this.handleSubmit.bind(this)
-  }
+
+function Question() {
+  const [formValues, setFormValues] = useState([{ name: ""}])
   
-  handleChange(i, e) {
-    let formValues = this.state.formValues;
-    formValues[i][e.target.name] = e.target.value;
-    this.setState({ formValues });
+  let handleChange = (i, e) => {
+    let newFormValues = [...formValues];
+    newFormValues[i][e.target.name] = e.target.value;
+    setFormValues(newFormValues);
   }
 
-  addFormFields() {
-    this.setState(({
-      formValues: [...this.state.formValues, { name: ""}]
-    }))
+let addFormFields = () => {
+    setFormValues([...formValues, { name: ""}])
   }
 
-  removeFormFields(i) {
-    let formValues = this.state.formValues;
-    formValues.splice(i, 1);
-    this.setState({ formValues });
-  }
+let removeFormFields = (i) => {
+    let newFormValues = [...formValues];
+    newFormValues.splice(i, 1);
+    setFormValues(newFormValues)
+}
 
-  handleSubmit(event) {
+let handleSubmit = (event) => {
     event.preventDefault();
-    alert(JSON.stringify(this.state.formValues));
-  }
+    alert(JSON.stringify(formValues));
+}
   
-    render(){
+
     return(
       
         <div   className="row" style={{paddingTop: '23px', paddingBottom: '17px'}}>
@@ -53,21 +41,34 @@ class Question  extends Component {
                 <div className="form-check" style={{fontSize: '23px', color: 'var(--bs-pink)'}}><input className="form-check-input" type="radio" id="m_1" defaultValue="m_1" name="t_1" /><label className="form-check-label" htmlFor="m_1" style={{fontWeight: 'bold'}}>Multi Answer question<br /></label></div>
               </div>
               <h4 className="card-title" style={{fontSize: '24px', fontWeight: 'bold', paddingBottom: '12px', marginBottom: '0px', marginLeft: '6px'}}>Answers:</h4>  
-              <form  onSubmit={this.handleSubmit}>
-              {this.state.formValues.map((element, index) => (  
-              <div key={index} onChange={e => this.handleChange(index, e)}> 
-                 
-                <Answer />      
-                                   
+              <form  onSubmit={handleSubmit}>
+              {formValues.map((element, index)  => (  
+              <div key={index} onChange={e => handleChange(index, e)}> 
+                    <div   >
+                    <div   style={{marginBottom: '19px', marginTop: '6px'}}>
+                      <div  className="row">
+                        <div   className="col d-flex justify-content-center align-items-center" style={{width: '80%', minWidth: '80%', maxWidth: '80%'}}><label className="form-label" style={{fontWeight: 'bold', marginLeft: '11px', marginTop: '5px', fontSize: '23px', color: 'rgb(63,70,78)'}}>{1}:&nbsp;&nbsp;</label>
+                        <input value={element.name || ""} onChange={e => handleChange(index, e)}  type="text" name="name"    style={{width: '95%', height: '46px', minWidth: '50%', fontSize: '22px', paddingLeft: '11px', paddingTop: '5px'}} /></div>            
+                        <div className="col d-flex align-items-center" style={{width: '20%'}}>
+                          <div className="d-flex align-items-center">
+                              <input type="checkbox" id="r_1_1" style={{fontWeight: 'bold', color: 'var(--bs-indigo)', fontSize: '21px'}} />
+                            <div className="form-check">
+                                <input className="form-check-input" type="radio" id="r_1_1" name="r_1_1"  style={{fontWeight: 'bold', color: 'var(--bs-indigo)', fontSize: '21px'}} defaultChecked /><label className="form-check-label" htmlFor="r_1_1" style={{fontWeight: 'bold', color: 'var(--bs-indigo)', fontSize: '21px'}}>Right Answer</label></div>
+                          </div>
+                        </div>  
+                      </div>
+                    </div>
+                    <div style={{marginBottom: '19px', marginTop: '6px'}}>
+                    </div>
+                  </div>  
               <div className="d-flex d-xxl-flex justify-content-center justify-content-xxl-center" style={{paddingLeft: '13px', marginTop: '22px', marginRight: '70px'}}>
-                  <button   className="btn" type="button"  onClick={() => this.addFormFields()}  style={{background: '#00a210', fontWeight: 'bold', color: 'rgb(255,255,255)'}} >Add answer</button>
-                  <button   className="btn" type="button" onClick={() => this.removeFormFields()}   style={{background: '#c90101', fontWeight: 'bold', color: 'rgb(255,255,255)'}} >Remove answer</button>
+                  <button   className="btn" type="button"  onClick={() => addFormFields()}  style={{background: '#00a210', fontWeight: 'bold', color: 'rgb(255,255,255)'}} >Add answer</button>
+                  <button   className="btn" type="button" onClick={() => removeFormFields()}   style={{background: '#c90101', fontWeight: 'bold', color: 'rgb(255,255,255)'}} >Remove answer</button>
               </div>
-
-              
               </div>
                ))}
                </form>
+               <div className="text-center" style={{paddingTop: '67px', paddingBottom: '160px'}}><button className="btn" type="button" onClick={handleSubmit}  style={{background: '#3a88b6', height: '60px', width: '170.025px', fontWeight: 'bold', fontSize: '16px'}}>Create Exam</button></div>
             </div>
           </div>
         </div>
@@ -75,6 +76,6 @@ class Question  extends Component {
 
       )
     }   
-  }
+
 
 export default Question;
