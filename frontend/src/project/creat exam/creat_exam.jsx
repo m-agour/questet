@@ -1,7 +1,20 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from "react";
 import Question from "./Question";
 
 class Creat_exam extends Component {
+  state = { title: "", duration: "", startTime: "", questions: {} };
+  count = 1;
+
+  handleChange = (id, question) => {
+    this.setState({
+      questions: { ...this.state.questions, [id]: question },
+    });
+  };
+  submit = () => {
+    console.log(this.state);
+  };
+
   render() {
     return (
       <div>
@@ -127,7 +140,7 @@ class Creat_exam extends Component {
               />
             </h1>
             <div className="container">
-              <Question />
+              <Question id={1} onDataChange={this.handleChange} />
 
               <div
                 className="d-flex d-xxl-flex justify-content-center justify-content-xxl-center"
@@ -173,7 +186,7 @@ class Creat_exam extends Component {
                 <button
                   className="btn"
                   type="button"
-                  onClick={this.handleSubmit}
+                  onClick={this.submit}
                   style={{
                     background: "#ffffff",
                     height: "60px",

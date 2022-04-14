@@ -2,15 +2,14 @@ import React, { Component, useState } from "react";
 
 class Answer extends Component {
   state = {
-    selectedCode: "",
     multiple: true,
   };
   id = this.props.id;
 
   handleChange = () => {
     var data = this.data.value;
-    var correct = this.correct.value;
-    this.props.onDataChange(this.id, data, correct);
+    var correct = this.correct.checked;
+    this.props.onDataChange(this.id, { data: data, correct: correct });
   };
 
   render() {
@@ -32,7 +31,7 @@ class Answer extends Component {
                   color: "rgb(63,70,78)",
                 }}
               >
-                {1}:&nbsp;&nbsp;
+                {this.id}:&nbsp;&nbsp;
               </label>
               <input
                 type="text"
@@ -69,8 +68,7 @@ class Answer extends Component {
                       className="form-check-input"
                       ref={(ref) => (this.correct = ref)}
                       type="radio"
-                      id="r_1_1"
-                      name="r_1_1"
+                      name="1"
                       style={{
                         fontWeight: "bold",
                         color: "var(--bs-indigo)",

@@ -2,15 +2,35 @@ import React, { Component } from "react";
 import Answer from "./Answer";
 
 class Question extends Component {
-  state = { answeres: {} };
+  state = { data: "", type: "S", answers: {} };
   count = 1;
+  handleChange = (id, answer) => {
+    this.setState({
+      answers: { ...this.state.answers, [id]: answer },
+    });
+  };
 
-  handleChange = (id, data, correct) => {
-    this.setState({ ...this.state.answeres, [id]: [data, correct] });
+  updateQuestion = () => {
+    this.setState({
+      data: this.data.value,
+    });
+    this.handleQuestionChange();
+  };
+
+  handleQuestionChange = () => {
+    this.props.onDataChange(this.props.id, this.state);
+  };
+
+  updateType = () => {
+    this.setState({
+      type: this.type.checked ? "S" : "M",
+    });
+    this.handleQuestionChange();
   };
 
   submit = () => {
     console.log(this.state);
+    this.props.onDataChange(this.props.id, this.state);
   };
 
   render() {
@@ -50,6 +70,8 @@ class Question extends Component {
                     paddingTop: "4px",
                   }}
                   placeholder="Type your question."
+                  ref={(ref) => (this.data = ref)}
+                  onChange={this.updateQuestion}
                   required
                   defaultValue={""}
                 />
@@ -91,6 +113,8 @@ class Question extends Component {
                 >
                   <input
                     className="form-check-input"
+                    ref={(ref) => (this.type = ref)}
+                    onChange={this.updateType}
                     type="radio"
                     id="s_1"
                     defaultValue="s_1"
@@ -111,6 +135,7 @@ class Question extends Component {
                 >
                   <input
                     className="form-check-input"
+                    onChange={this.updateType}
                     type="radio"
                     id="m_1"
                     defaultValue="m_1"
@@ -138,7 +163,8 @@ class Question extends Component {
               >
                 Answers:
               </h4>
-              <Answer onDataChange={this.handleChange} id={this.count} />
+              <Answer onDataChange={this.handleChange} id={1} />
+              <Answer onDataChange={this.handleChange} id={2} />
               <div>
                 <div
                   className="d-flex d-xxl-flex justify-content-center justify-content-xxl-center"
