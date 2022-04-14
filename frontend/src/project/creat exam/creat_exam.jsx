@@ -1,32 +1,44 @@
-import React, { Component, useState   } from 'react';
+import React, { Component } from 'react';
+import { useEffect } from 'react';
+import { useForm, useFieldArray } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
 import Question from './Question.jsx';
 import Answer from './Answer.jsx';
 
-function Creat_exam () {
-  const [formValues, setFormValues] = useState([{ name: ""}])
+class Creat_exam  extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { 
+       formValues: [{ name: "" }]
+     };
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
   
-  let handleChange = (i, e) => {
-    let newFormValues = [...formValues];
-    newFormValues[i][e.target.name] = e.target.value;
-    setFormValues(newFormValues);
+  handleChange(i, e) {
+    let formValues = this.state.formValues;
+    formValues[i][e.target.name] = e.target.value;
+    this.setState({ formValues });
   }
 
-let addFormFields = () => {
-    setFormValues([...formValues, { name: ""}])
+  addFormFields() {
+    this.setState(({
+      formValues: [...this.state.formValues, { name: ""}]
+    }))
   }
 
-let removeFormFields = (i) => {
-    let newFormValues = [...formValues];
-    newFormValues.splice(i, 1);
-    setFormValues(newFormValues)
-}
+  removeFormFields(i) {
+    let formValues = this.state.formValues;
+    formValues.splice(i, 1);
+    this.setState({ formValues });
+  }
 
-let handleSubmit = (event) => {
+  handleSubmit(event) {
     event.preventDefault();
-    alert(JSON.stringify(formValues));
-}
+    alert(JSON.stringify(this.state.formValues));
+  }
   
-
+  render(){
         return (
                  
                     <div >
@@ -57,16 +69,16 @@ let handleSubmit = (event) => {
                         <section className="shadow-lg" style={{background: '#3c65c4', paddingBottom: '62px'}}>
                           <h1 style={{paddingLeft: '0px', paddingTop: '50px', textAlign: 'center', color: 'rgb(255,255,255)'}}>Title:<input type="text" style={{marginLeft: '17px', width: '633.4px', borderRadius: '10px', height: '49px', fontSize: '23px', color: 'rgb(0,0,0)', paddingLeft: '10px'}} placeholder="Enter title here" required /></h1>
                           <div className="container">     
-                          <form  onSubmit={handleSubmit}>
-                          {formValues.map((element, index)  => ( 
-
+                          <form  onSubmit={this.handleSubmit}>
+                          {this.state.formValues.map((element, index) => (   
+                 
                             <  Question   />
-                          
                             ))}
                           </form>
                             <div className="d-flex d-xxl-flex justify-content-center justify-content-xxl-center" style={{paddingLeft: '13px', marginTop: '22px', marginRight: '27px'}}>
-                            <button type="button"    className="btn" onClick={() => removeFormFields()}  style={{background: '#c90101', fontWeight: 'bold', color: 'rgb(255,255,255)', width: '100%', height: '51px'}} >Remove question</button> 
-                             <button   className="btn" type="button" onClick={() => addFormFields()} style={{background: '#00a210', fontWeight: 'bold', color: 'rgb(255,255,255)', width: '100%', height: '51px'}}>Add question</button></div>
+                            <button type="button"    className="btn" onClick={() => this.removeFormFields()}  style={{background: '#c90101', fontWeight: 'bold', color: 'rgb(255,255,255)', width: '100%', height: '51px'}} >Remove question</button> 
+                             <button   className="btn" type="button" onClick={() => this.addFormFields()} style={{background: '#00a210', fontWeight: 'bold', color: 'rgb(255,255,255)', width: '100%', height: '51px'}}>Add question</button></div>
+                            <div className="text-center" style={{paddingTop: '67px', paddingBottom: '160px'}}><button className="btn" type="button" onClick={this.handleSubmit}  style={{background: '#ffffff', height: '60px', width: '170.025px', fontWeight: 'bold', fontSize: '16px'}}>Create Exam</button></div>
                           </div>
                         </section>
                       </main>
@@ -117,6 +129,6 @@ let handleSubmit = (event) => {
 
         );
     }
-
+  }
  
 export default Creat_exam;
