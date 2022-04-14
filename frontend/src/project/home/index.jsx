@@ -75,7 +75,9 @@ class Home extends Component {
                       {/* end header section */}
                       {/* about section */}
                       <section className="about_section layout_padding">
-                         <button type="submit"  className="btn1_on-hover">Create Exam</button>    
+                        <a href='/creat_exam'>
+                         <button type="submit"  className="btn1_on-hover">Create Exam</button>  
+                         </a>  
                          <button type="submit"  className="btn2_on-hover">Take Exam</button>                                  
                         <div className="container">
                           <h2 className="main-heading ">

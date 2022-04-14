@@ -7,6 +7,7 @@ import {
 import Login from "./project/Login";
 import Home from "./project/home/index";
 import Profile from "./project/profile/profile";
+import Creat_exam from "./project/creat exam/creat_exam";
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
           <Route exact path="/" component={Login} />  
           <Route path="/home" component={Home} />
           <Route path="/profile" component={Profile} />
+          <Route path="/creat_exam" component={Creat_exam} />
           <Redirect to="/"/>
         </Switch>
       </Router>
