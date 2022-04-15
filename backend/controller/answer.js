@@ -46,3 +46,65 @@ exports.createAnswer = async(req, res) => {
     
     return res.status(200).json({ success: true, data: answer });
 };
+
+// edit answer (PATCH)
+exports.editAnswer = async(req , res) => {
+    // check if answer exist
+    let answer = await Answer.count({ where: { id: parseInt(req.params.id) } });
+    if (!answer)
+        return res
+            .status(404)
+            .json({ success: false, data: "answer does not exist." });
+    
+    if (req.body.correct)
+        if (!["T", "F"].includes(req.body.correct))
+            return res
+                .status(400)
+                .json({ success: false, data: "correct must be 'T' or 'F'" });
+    
+    
+    let result = await Answer.update(req.body, {
+        where: { id: parseInt(req.params.id) },
+    });
+
+    if (!result[0])
+        return res
+            .status(400)
+            .json({ success: false, data: "could not update answer data" });
+    return res.status(200).json({ success: true, data: "answer updated!" });
+
+};
+
+// delete answer (POST)
+exports.deleteAnswer = async(req , res) => {
+    // check if answer exist
+    let answer = await Answer.count({ where: { id: parseInt(req.params.id) } });
+    if (!answer)
+        return res
+            .status(404)
+            .json({ success: false, data: "answer does not exist." });
+
+    let result = await Answer.destroy({ where: { id: parseInt(req.params.id) }
+    });
+
+    if (!result)
+        return res
+            .status(400)
+            .json({ success: false, data: "could not delete answer" });
+    return res.status(200).json({ success: true, data: "answer deleted!" });
+
+};
+
+// get answer by id (GET)
+exports.getAnswer = async(req, res) => {
+    try {
+        let answer = await Answer.findOne({ where: { id: parseInt(req.params.id) } });
+        if (!answer)
+            return res
+                .status(404)
+                .json({ success: false, data: "answer does not exist." });
+        return res.status(200).json({ success: true, data: answer });
+    } catch (err) {
+        return res.status(500).json({ success: false, data: err });
+    }
+};
