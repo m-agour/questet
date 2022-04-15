@@ -7,5 +7,6 @@ router.post("/", answerContoller.createAnswer);
 router.patch("/:id", answerContoller.editAnswer);
 router.post("/delete/:id", answerContoller.deleteAnswer);
 router.get("/:id", answerContoller.getAnswer);
+router.get("/correct/:questionId", answerContoller.getCorrectAnswer);
 
 module.exports = router;
