@@ -101,19 +101,6 @@ exports.createUser = async(req, res) => {
     }
 };
 
-// get user by id (GET)
-exports.getUser = async(req, res) => {
-    try {
-        let user = await User.findOne({ where: { id: parseInt(req.params.id) } });
-        if (!user)
-            return res
-                .status(404)
-                .json({ success: false, data: "user does not exist." });
-        res.status(200).json({ success: true, data: user });
-    } catch (err) {
-        res.status(500).json({ success: false, data: err });
-    }
-};
 
 // update user data (PATCH :id)
 exports.updateUser = async(req, res) => {

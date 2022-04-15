@@ -136,3 +136,17 @@ exports.getCorrectAnswer = async(req, res) => {
         res.status(500).json({ success: false, data: err });
     }
 };
+
+// get all answers for one question by questionId (GET)
+exports.getAllAnswers = async(req, res) => {
+    try {
+        let answer = await Answer.findAll({ where: { questionId: parseInt(req.params.questionId) } });
+        if (!answer)
+            return res
+                .status(404)
+                .json({ success: false, data: "answer does not exist." });
+        res.status(200).json({ success: true, data: answer });
+    } catch (err) {
+        res.status(500).json({ success: false, data: err });
+    }
+};

@@ -8,5 +8,6 @@ router.patch("/:id", answerContoller.editAnswer);
 router.post("/delete/:id", answerContoller.deleteAnswer);
 router.get("/:id", answerContoller.getAnswer);
 router.get("/correct/:questionId", answerContoller.getCorrectAnswer);
+router.get("/answers/:questionId", answerContoller.getAllAnswers);
 
 module.exports = router;
