@@ -37,7 +37,6 @@ class Answer extends Component {
                 {this.id}:&nbsp;&nbsp;
               </label>
               <input
-                required
                 type="text"
                 name="name"
                 ref={(ref) => (this.data = ref)}

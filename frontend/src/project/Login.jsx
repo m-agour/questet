@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./style.css";
 import axios from "axios";
-import Cookies from "js-cookie";
 
 class Login extends React.Component {
   constructor(props) {
@@ -13,7 +12,6 @@ class Login extends React.Component {
     this.loginEmail = React.createRef();
     this.loginPassword = React.createRef();
     this.firstName = React.createRef();
-    if (Cookies.get("auth")) this.props.history.push("/home");
   }
 
   login = (event) => {
@@ -26,12 +24,8 @@ class Login extends React.Component {
     console.log(data);
     axios.post("http://127.0.0.1:5000/api/auth/login", data).then(
       (response) => {
-        if (Cookies.get("redirect")) {
-          console.log(Cookies.get("redirect"));
-          this.props.history.push(Cookies.get("redirect"));
-          Cookies.set("redirect", null);
-        } else this.props.history.push("/home");
-        Cookies.set("auth", response.data.data.id);
+        console.log(response);
+        this.props.history.push("/home");
       },
       (error) => {
         this.props.history.push("/");

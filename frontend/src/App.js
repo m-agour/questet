@@ -7,20 +7,23 @@ import {
 import Login from "./project/Login";
 import Home from "./project/home/index";
 import Profile from "./project/profile/profile";
-import Create_exam from "./project/creat exam/create_exam";
+import Creat_exam from "./project/creat exam/creat_exam";
+
 
 export default function App() {
   return (
     <>
       <Router>
         <Switch>
-          <Route exact path="/" component={Login} />
+          <Route exact path="/" component={Login} />  
           <Route path="/home" component={Home} />
           <Route path="/profile" component={Profile} />
-          <Route path="/create_exam" component={Create_exam} />
-          <Redirect to="/" />
+          <Route path="/creat_exam" component={Creat_exam} />
+          <Redirect to="/"/>
         </Switch>
       </Router>
     </>
   );
 }
+  
+
