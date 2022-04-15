@@ -15,11 +15,9 @@ exports.getUsers = async(req, res) => {
             return res
                 .status(404)
                 .json({ success: false, data: "could not get data." });
-        return res.status(200).json({ success: true, data: users });
+        res.status(200).json({ success: true, data: users });
     } catch (err) {
-        return res
-            .status(500)
-            .json({ success: false, data: { success: false, data: err } });
+        res.status(500).json({ success: false, data: { success: false, data: err } });
     }
 };
 
@@ -31,9 +29,9 @@ exports.getUser = async(req, res) => {
             return res
                 .status(404)
                 .json({ success: false, data: "user does not exist." });
-        return res.status(200).json({ success: true, data: user });
+        res.status(200).json({ success: true, data: user });
     } catch (err) {
-        return res.status(500).json({ success: false, data: err });
+        res.status(500).json({ success: false, data: err });
     }
 };
 
@@ -95,7 +93,7 @@ exports.createUser = async(req, res) => {
         return res
             .status(500)
             .json({ success: false, data: "could not create user" });
-    return res.status(200).json({ success: true, data: user });
+    res.status(200).json({ success: true, data: user });
 };
 
 // get user by id (GET)
@@ -106,9 +104,9 @@ exports.getUser = async(req, res) => {
             return res
                 .status(404)
                 .json({ success: false, data: "user does not exist." });
-        return res.status(200).json({ success: true, data: user });
+        res.status(200).json({ success: true, data: user });
     } catch (err) {
-        return res.status(500).json({ success: false, data: err });
+        res.status(500).json({ success: false, data: err });
     }
 };
 
@@ -154,7 +152,7 @@ exports.updateUser = async(req, res) => {
             return res
                 .status(400)
                 .json({ success: false, data: "wrong birth date." });
-        req.body.DOB = validator.toDate(req.body.DOB);
+        return req.body.DOB = validator.toDate(req.body.DOB);
     }
 
     // other data
@@ -182,7 +180,7 @@ exports.updateUser = async(req, res) => {
         return res
             .status(400)
             .json({ success: false, data: "could not update user data" });
-    return res.status(200).json({ success: true, data: "user updated!" });
+    res.status(200).json({ success: true, data: "user updated!" });
 };
 
 // set user online status (SET by id)
@@ -194,9 +192,9 @@ exports.setOnline = async(req, res) => {
             return res
                 .status(404)
                 .json({ success: false, data: "user does not exist." });
-        return res.status(200).json({ success: true, data: now });
+        res.status(200).json({ success: true, data: now });
     } catch (err) {
-        return res.status(500).json({ success: false, data: err });
+        res.status(500).json({ success: false, data: err });
     }
 };
 
@@ -208,12 +206,12 @@ exports.isOnline = async(req, res) => {
             return res
                 .status(404)
                 .json({ success: false, data: "user does not exist." });
-        return res.status(200).json({
+        res.status(200).json({
             success: true,
             data: (Date.now() - user.lastOnline) / 1000 < 40,
         });
     } catch (err) {
-        return res.status(500).json({ success: false, data: err });
+        res.status(500).json({ success: false, data: err });
     }
 };
 
@@ -231,9 +229,9 @@ exports.activate = async(req, res) => {
                 .status(409)
                 .json({ success: false, data: "Already activated." });
         }
-        return res.status(200).json({ success: false, data: "activated" });
+        res.status(200).json({ success: false, data: "activated" });
     } catch (err) {
-        return res.status(500).json({ success: false, data: err });
+        res.status(500).json({ success: false, data: err });
     }
 };
 
@@ -245,9 +243,9 @@ exports.isActivated = async(req, res) => {
             return res
                 .status(404)
                 .json({ success: false, data: "user does not exist." });
-        return res.status(200).json({ success: true, data: user.activated });
+        res.status(200).json({ success: true, data: user.activated });
     } catch (err) {
-        return res.status(500).json({ success: false, data: err });
+        res.status(500).json({ success: false, data: err });
     }
 };
 
@@ -262,8 +260,8 @@ exports.login = async(req, res) => {
         let passMatches = await bcrypt.compare(req.body.password, user.password);
         if (!passMatches)
             return res.status(401).json({ success: false, data: "worng password!" });
-        return res.status(200).json({ success: true, data: user });
+        res.status(200).json({ success: true, data: user });
     } catch (err) {
-        return res.status(500).json({ success: false, data: err });
+        res.status(500).json({ success: false, data: err });
     }
 };

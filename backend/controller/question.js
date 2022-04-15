@@ -52,7 +52,7 @@ exports.createQuestion = async(req, res) => {
             .status(500)
             .json({ success: false, data: "could not create question" });
 
-    return res.status(200).json({ success: true, data: question });
+    res.status(200).json({ success: true, data: question });
 };
 
 
@@ -60,7 +60,6 @@ exports.createQuestion = async(req, res) => {
 exports.editQuestion = async(req , res) => {
     // check if question exist
     let question = await Question.count({ where: { id: parseInt(req.params.id) } });
-    // select * from question where id = 
     if (!question)
         return res
             .status(404)
@@ -102,7 +101,7 @@ exports.editQuestion = async(req , res) => {
         return res
             .status(400)
             .json({ success: false, data: "could not update question data" });
-    return res.status(200).json({ success: true, data: "question updated!" });
+    res.status(200).json({ success: true, data: "question updated!" });
 
 };
 
@@ -123,7 +122,7 @@ exports.deleteQuestion = async(req , res) => {
         return res
             .status(400)
             .json({ success: false, data: "could not delete question data" });
-    return res.status(200).json({ success: true, data: "delete updated!" });
+    res.status(200).json({ success: true, data: "delete updated!" });
 
 };
 
@@ -135,13 +134,9 @@ exports.getQuestion = async(req, res) => {
             return res
                 .status(404)
                 .json({ success: false, data: "question does not exist." });
-        return res.status(200).json({ success: true, data: question });
+        res.status(200).json({ success: true, data: question });
     } catch (err) {
-        return res.status(500).json({ success: false, data: err });
+        res.status(500).json({ success: false, data: err });
     }
 };
 
-// TODO: edit question   done
-// delete question     done
-// get question     done
-//

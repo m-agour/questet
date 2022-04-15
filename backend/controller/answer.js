@@ -44,7 +44,7 @@ exports.createAnswer = async(req, res) => {
             .status(500)
             .json({ success: false, data: "could not create answer" });
     
-    return res.status(200).json({ success: true, data: answer });
+    res.status(200).json({ success: true, data: answer });
 };
 
 // edit answer (PATCH)
@@ -71,7 +71,7 @@ exports.editAnswer = async(req , res) => {
         return res
             .status(400)
             .json({ success: false, data: "could not update answer data" });
-    return res.status(200).json({ success: true, data: "answer updated!" });
+    res.status(200).json({ success: true, data: "answer updated!" });
 
 };
 
@@ -91,7 +91,7 @@ exports.deleteAnswer = async(req , res) => {
         return res
             .status(400)
             .json({ success: false, data: "could not delete answer" });
-    return res.status(200).json({ success: true, data: "answer deleted!" });
+    res.status(200).json({ success: true, data: "answer deleted!" });
 
 };
 
@@ -103,9 +103,9 @@ exports.getAnswer = async(req, res) => {
             return res
                 .status(404)
                 .json({ success: false, data: "answer does not exist." });
-        return res.status(200).json({ success: true, data: answer });
+        res.status(200).json({ success: true, data: answer });
     } catch (err) {
-        return res.status(500).json({ success: false, data: err });
+        res.status(500).json({ success: false, data: err });
     }
 };
 
@@ -118,8 +118,8 @@ exports.getCorrectAnswer = async(req, res) => {
             return res
                 .status(404)
                 .json({ success: false, data: "answer does not exist." });
-        return res.status(200).json({ success: true, data: answer });
+        res.status(200).json({ success: true, data: answer });
     } catch (err) {
-        return res.status(500).json({ success: false, data: err });
+        res.status(500).json({ success: false, data: err });
     }
 };

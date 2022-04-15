@@ -25,10 +25,10 @@ exports.getReport = async(req, res) => {
                 .status(404)
                 .json({ success: false, data: "report does not exist!" });
 
-        return res.status(200).json({ success: true, data: report });
+    return res.status(200).json({ success: true, data: report });
     } catch (err) {
         console.log(err);
-        return res.status(500).json({ success: false, data: err });
+        res.status(500).json({ success: false, data: err });
     }
 };
 exports.fileReport = async(req, res) => {
@@ -83,10 +83,10 @@ exports.fileReport = async(req, res) => {
                 success: false,
                 data: "couldn't create report for some reason",
             });
-        return res.status(200).json({ success: true, data: report });
+        res.status(200).json({ success: true, data: report });
     } catch (err) {
         console.log(err);
-        return res.status(500).json({ success: false, data: err });
+        res.status(500).json({ success: false, data: err });
     }
 };
 
@@ -105,10 +105,10 @@ exports.getRecievedReports = async(req, res) => {
                 .status(404)
                 .json({ success: false, data: "reports does not exist!" });
 
-        return res.status(200).json({ success: true, data: reports });
+        res.status(200).json({ success: true, data: reports });
     } catch (err) {
         console.log(err);
-        return res.status(500).json({ success: false, data: err });
+        res.status(500).json({ success: false, data: err });
     }
 };
 
@@ -127,10 +127,10 @@ exports.getFiledReports = async(req, res) => {
                 .status(404)
                 .json({ success: false, data: "reports does not exist!" });
 
-        return res.status(200).json({ success: true, data: reports });
+        res.status(200).json({ success: true, data: reports });
     } catch (err) {
         console.log(err);
-        return res.status(500).json({ success: false, data: err });
+        res.status(500).json({ success: false, data: err });
     }
 };
 
@@ -149,9 +149,9 @@ exports.setReportSeen = async(req, res) => {
                 .status(404)
                 .json({ success: false, data: "report does not exist!" });
 
-        return res.status(200).json({ success: true, data: report });
+        res.status(200).json({ success: true, data: report });
     } catch (err) {
         console.log(err);
-        return res.status(500).json({ success: false, data: err });
+        res.status(500).json({ success: false, data: err });
     }
 };
