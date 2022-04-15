@@ -39,9 +39,10 @@ exports.takeExam = async(req, res) => {
             where: { id: parseInt(req.body.userId) },
         });
         if (!user) return res.status(404).json("user not found!");
-        let exam = await User.findOne({
+        let exam = await Exam.count({
             where: { id: parseInt(req.body.examId) },
         });
+        console.log(exam);
         if (!exam) return res.status(404).json("exam not found!");
 
         let take_exam = await db.take_exam.create({
