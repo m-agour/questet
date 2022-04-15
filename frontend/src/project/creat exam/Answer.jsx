@@ -4,13 +4,15 @@ class Answer extends Component {
   state = {
     multiple: true,
   };
+
   id = this.props.id;
 
   handleChange = (e) => {
     e.persist();
-    var data = this.data.value;
-    var correct = this.correct.checked;
-    this.props.onDataChange(this.id, { data: data, correct: correct });
+    this.props.onDataChange(this.id, {
+      data: this.data.value,
+      correct: this.correct.checked,
+    });
   };
 
   render() {

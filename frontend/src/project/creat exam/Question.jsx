@@ -2,32 +2,23 @@ import React, { Component } from "react";
 import Answer from "./Answer";
 
 class Question extends Component {
-  state = { data: "", type: "S", answers: {} };
   count = 2;
-  handleChange = (id, answer) => {
-    this.setState({
-      answers: { ...this.state.answers, [id]: answer },
-    });
-  };
 
-  updateQuestion = (e) => {
+  handleQuestionChange = (e) => {
     e.persist();
-    this.setState({
-      data: this.data.value,
-    });
-    this.handleQuestionChange();
+    this.props.onDataChange(
+      this.props.id,
+      this.data.value,
+      this.type.checked ? "S" : "M"
+    );
   };
 
-  handleQuestionChange = () => {
-    this.props.onDataChange(this.props.id, this.state);
+  handleAnswerChange = (answerId, answer) => {
+    this.props.onAnswerChange(this.props.id, answerId, answer);
   };
 
-  updateType = (e) => {
-    e.persist();
-    this.setState({
-      type: this.type.checked ? "S" : "M",
-    });
-    this.handleQuestionChange();
+  handleChange = (answerId, answer) => {
+    this.handleAnswerChange(answerId, answer);
   };
 
   addAnswer = () => {
@@ -77,7 +68,7 @@ class Question extends Component {
                   }}
                   placeholder="Type your question."
                   ref={(ref) => (this.data = ref)}
-                  onChange={this.updateQuestion.bind(this)}
+                  onChange={this.handleQuestionChange}
                   required
                   defaultValue={""}
                 />
@@ -120,7 +111,7 @@ class Question extends Component {
                   <input
                     className="form-check-input"
                     ref={(ref) => (this.type = ref)}
-                    onChange={this.updateType.bind(this)}
+                    onChange={this.handleQuestionChange}
                     type="radio"
                     id="s_1"
                     defaultValue="s_1"
@@ -141,7 +132,7 @@ class Question extends Component {
                 >
                   <input
                     className="form-check-input"
-                    onChange={this.updateType.bind(this)}
+                    onChange={this.handleQuestionChange}
                     type="radio"
                     id="m_1"
                     defaultValue="m_1"

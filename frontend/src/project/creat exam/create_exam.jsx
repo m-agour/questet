@@ -12,14 +12,27 @@ class Creat_exam extends Component {
       this.props.history.push("/");
     }
   }
-  state = { title: "", duration: "", startTime: "", questions: {} };
-  count = 1;
-
-  handleChange = (id, question) => {
-    this.setState({
-      questions: { ...this.state.questions, [id]: question },
-    });
+  state = {
+    title: "",
+    duration: "",
+    startTime: "",
+    questions: {},
   };
+  count = 1;
+  questions = {};
+  handleChange = (id, data, type) => {
+    if (!this.questions[id]) this.questions[id] = {};
+    this.questions[id].data = data;
+    this.questions[id].type = type;
+  };
+
+  handleAnswerChange = (questionId, answerId, answer) => {
+    if (!this.questions[questionId].answers)
+      this.questions[questionId].answers = {};
+    this.questions[questionId].answers[answerId] = answer;
+    console.log(this.questions);
+  };
+
   submit = (event) => {
     console.log(this.state);
     event.preventDefault();
@@ -188,7 +201,11 @@ class Creat_exam extends Component {
                 const rows = [];
                 for (let i = 0; i < this.count; i++) {
                   rows.push(
-                    <Question id={i + 1} onDataChange={this.handleChange} />
+                    <Question
+                      id={i + 1}
+                      onDataChange={this.handleChange}
+                      onAnswerChange={this.handleAnswerChange}
+                    />
                   );
                 }
                 return rows;
