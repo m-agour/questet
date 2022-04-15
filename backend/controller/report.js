@@ -16,7 +16,7 @@ exports.getReport = async(req, res) => {
             return res
                 .status(400)
                 .json({ success: false, data: "no reportId included!" });
-
+        
         let report = await Report.findOne({
             where: { id: req.params.reportId },
         });
@@ -24,7 +24,7 @@ exports.getReport = async(req, res) => {
             return res
                 .status(404)
                 .json({ success: false, data: "report does not exist!" });
-
+    
     return res.status(200).json({ success: true, data: report });
     } catch (err) {
         console.log(err);
@@ -54,13 +54,13 @@ exports.fileReport = async(req, res) => {
             return res
                 .status(404)
                 .json({ success: false, data: "question does not exist!" });
-
+        
         let exam = await Exam.findOne({ where: { id: question.examId } });
         if (!exam)
             return res
                 .status(404)
                 .json({ success: false, data: "exam does not exist!" });
-
+        
         let examiner = await User.findOne({ where: { id: exam.userId } });
         if (!examiner)
             return res
@@ -71,7 +71,7 @@ exports.fileReport = async(req, res) => {
             return res
                 .status(404)
                 .json({ success: false, data: "user does not exist!" });
-
+        
         let report = await Report.create({
             userId: user.id,
             questionId: question.id,
@@ -96,7 +96,7 @@ exports.getRecievedReports = async(req, res) => {
             return res
                 .status(400)
                 .json({ success: false, data: "no userId included!" });
-
+        
         let reports = await Report.findAll({
             where: { examinerId: req.params.userId },
         });
@@ -104,7 +104,7 @@ exports.getRecievedReports = async(req, res) => {
             return res
                 .status(404)
                 .json({ success: false, data: "reports does not exist!" });
-
+        
         res.status(200).json({ success: true, data: reports });
     } catch (err) {
         console.log(err);
@@ -118,7 +118,7 @@ exports.getFiledReports = async(req, res) => {
             return res
                 .status(400)
                 .json({ success: false, data: "no userId included!" });
-
+        
         let reports = await Report.findAll({
             where: { userId: req.params.userId },
         });
@@ -126,7 +126,7 @@ exports.getFiledReports = async(req, res) => {
             return res
                 .status(404)
                 .json({ success: false, data: "reports does not exist!" });
-
+        
         res.status(200).json({ success: true, data: reports });
     } catch (err) {
         console.log(err);
@@ -140,7 +140,7 @@ exports.setReportSeen = async(req, res) => {
             return res
                 .status(400)
                 .json({ success: false, data: "no reportId included!" });
-
+        
         let report = await Report.findOne({
             where: { id: req.params.reportId },
         });
@@ -148,7 +148,7 @@ exports.setReportSeen = async(req, res) => {
             return res
                 .status(404)
                 .json({ success: false, data: "report does not exist!" });
-
+        
         res.status(200).json({ success: true, data: report });
     } catch (err) {
         console.log(err);

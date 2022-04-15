@@ -37,63 +37,68 @@ exports.getUser = async(req, res) => {
 
 // create new user (POST)
 exports.createUser = async(req, res) => {
-    let userData = {};
-    userData.email = req.body.email;
-    // checking email typos.
-    if (!userData.email)
-        return res
-            .status(400)
-            .json({ success: false, data: "missing email address." });
-    let exist = await User.count({ where: { email: userData.email } });
-    //checking for conflict emails.
-    if (exist != 0)
-        return res
-            .status(409)
-            .json({ success: false, data: "email already exist." });
-    if (!validator.isEmail(userData.email))
-        return res
-            .status(400)
-            .json({ success: false, data: "wrong email address." });
-
-    //checking name
-    userData.firstName = req.body.firstName;
-    if (!userData.firstName)
-        return res.status(400).json({ success: false, data: "missing first Name" });
-    userData.middleName = req.body.middleName;
-    userData.lastName = req.body.lastName;
-
-    userData.password = req.body.password;
-    if (!userData.password)
-        return res
-            .status(400)
-            .json({ success: false, data: "password does not exist!" });
-    userData.password = userData.password.toString();
-    // check password
-    if (userData.password.length < 8)
-        return res
-            .status(400)
-            .json({ success: false, data: "password too short!" });
-    // hashing password
-    const salt = await bcrypt.genSalt(10);
-    // now we set user password to hashed password
-    userData.password = await bcrypt.hash(userData.password, salt);
-    // validating birthdate
-    let birthdate = req.body.BOD;
-    console.log(req.body);
-    if (!birthdate || validator.isAfter(birthdate))
-        return res.status(400).json({ success: false, data: "wrong birth date." });
-    userData.DOB = validator.toDate(birthdate);
-    userData.country = req.body.country;
-    userData.timeZone = +2;
-    userData.gender = req.body.gender;
-    userData.currentPosition = req.body.currentPosition;
-
-    let user = await User.create(userData);
-    if (!user)
-        return res
-            .status(500)
-            .json({ success: false, data: "could not create user" });
-    res.status(200).json({ success: true, data: user });
+    try {
+        let userData = {};
+        userData.email = req.body.email;
+        // checking email typos.
+        if (!userData.email)
+            return res
+                .status(400)
+                .json({ success: false, data: "missing email address." });
+        let exist = await User.count({ where: { email: userData.email } });
+        //checking for conflict emails.
+        if (exist != 0)
+            return res
+                .status(409)
+                .json({ success: false, data: "email already exist." });
+        if (!validator.isEmail(userData.email))
+            return res
+                .status(400)
+                .json({ success: false, data: "wrong email address." });
+        
+        //checking name
+        userData.firstName = req.body.firstName;
+        if (!userData.firstName)
+            return res.status(400).json({ success: false, data: "missing first Name" });
+        userData.middleName = req.body.middleName;
+        userData.lastName = req.body.lastName;
+        
+        userData.password = req.body.password;
+        if (!userData.password)
+            return res
+                .status(400)
+                .json({ success: false, data: "password does not exist!" });
+        userData.password = userData.password.toString();
+        // check password
+        if (userData.password.length < 8)
+            return res
+                .status(400)
+                .json({ success: false, data: "password too short!" });
+        // hashing password
+        const salt = await bcrypt.genSalt(10);
+        // now we set user password to hashed password
+        userData.password = await bcrypt.hash(userData.password, salt);
+        // validating birthdate
+        let birthdate = req.body.BOD;
+        console.log(req.body);
+        if (!birthdate || validator.isAfter(birthdate))
+            return res.status(400).json({ success: false, data: "wrong birth date." });
+        userData.DOB = validator.toDate(birthdate);
+        userData.country = req.body.country;
+        userData.timeZone = +2;
+        userData.gender = req.body.gender;
+        userData.currentPosition = req.body.currentPosition;
+        
+        let user = await User.create(userData);
+        if (!user)
+            return res
+                .status(500)
+                .json({ success: false, data: "could not create user" });
+        res.status(200).json({ success: true, data: user });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ success: false, data: err });
+    }
 };
 
 // get user by id (GET)
@@ -112,75 +117,80 @@ exports.getUser = async(req, res) => {
 
 // update user data (PATCH :id)
 exports.updateUser = async(req, res) => {
-    // check if user exist
-    let user = await User.findOne({ where: { id: parseInt(req.params.id) } });
-    if (!user)
-        return res
-            .status(404)
-            .json({ success: false, data: "user does not exist." });
-
-    // checking email typos.
-    if (req.body.email) {
-        let exist = await User.count({ where: { email: req.body.email } });
-        //checking for conflict emails.
-        if (exist != 0)
+    try {
+        // check if user exist
+        let user = await User.findOne({ where: { id: parseInt(req.params.id) } });
+        if (!user)
             return res
-                .status(409)
-                .json({ success: false, data: "email already exist." });
-        if (!validator.isEmail(req.body.email))
-            return res
-                .status(400)
-                .json({ success: false, data: "wrong email address." });
-    }
-
-    if (req.body.password) {
-        req.body.password = ureq.body.password.toString();
-        // check password
-        if (req.body.password.length < 8)
-            return res
-                .status(400)
-                .json({ success: false, data: "password too short!" });
-        // hashing password
-        const salt = await bcrypt.genSalt(10);
-        // now we set user password to hashed password
-        req.body.password = await bcrypt.hash(req.body.password, salt);
-    }
-
-    // validating birthdate
-    if (req.body.BOD) {
-        if (validator.isAfter(req.body.BOD))
-            return res
-                .status(400)
-                .json({ success: false, data: "wrong birth date." });
-        return req.body.DOB = validator.toDate(req.body.DOB);
-    }
-
-    // other data
-    if (req.body.country && !isString(req.body.country))
-        return res
-            .status(400)
-            .json({ success: false, data: "country can only be a string!" });
-
-    if (req.body.gender) {
-        if (!["m", "f"].includes(req.body.gender))
+                .status(404)
+                .json({ success: false, data: "user does not exist." });
+        
+        // checking email typos.
+        if (req.body.email) {
+            let exist = await User.count({ where: { email: req.body.email } });
+            //checking for conflict emails.
+            if (exist != 0)
+                return res
+                    .status(409)
+                    .json({ success: false, data: "email already exist." });
+            if (!validator.isEmail(req.body.email))
+                return res
+                    .status(400)
+                    .json({ success: false, data: "wrong email address." });
+        }
+        
+        if (req.body.password) {
+            req.body.password = ureq.body.password.toString();
+            // check password
+            if (req.body.password.length < 8)
+                return res
+                    .status(400)
+                    .json({ success: false, data: "password too short!" });
+            // hashing password
+            const salt = await bcrypt.genSalt(10);
+            // now we set user password to hashed password
+            req.body.password = await bcrypt.hash(req.body.password, salt);
+        }
+        
+        // validating birthdate
+        if (req.body.BOD) {
+            if (validator.isAfter(req.body.BOD))
+                return res
+                    .status(400)
+                    .json({ success: false, data: "wrong birth date." });
+            return req.body.DOB = validator.toDate(req.body.DOB);
+        }
+        
+        // other data
+        if (req.body.country && !isString(req.body.country))
             return res
                 .status(400)
-                .json({ success: false, data: "gender can only be male or female!" });
+                .json({ success: false, data: "country can only be a string!" });
+        
+        if (req.body.gender) {
+            if (!["m", "f"].includes(req.body.gender))
+                return res
+                    .status(400)
+                    .json({ success: false, data: "gender can only be male or female!" });
+        }
+        if (req.body.currentPosition && !isString(req.body.currentPosition))
+            return res
+                .status(400)
+                .json({ success: false, data: "job can only be a string!" });
+        
+        let result = await User.update(req.body, {
+            where: { id: parseInt(req.params.id) },
+        });
+        
+        if (!result[0])
+            return res
+                .status(400)
+                .json({ success: false, data: "could not update user data" });
+        res.status(200).json({ success: true, data: "user updated!" });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ success: false, data: err });
     }
-    if (req.body.currentPosition && !isString(req.body.currentPosition))
-        return res
-            .status(400)
-            .json({ success: false, data: "job can only be a string!" });
-
-    let result = await User.update(req.body, {
-        where: { id: parseInt(req.params.id) },
-    });
-
-    if (!result[0])
-        return res
-            .status(400)
-            .json({ success: false, data: "could not update user data" });
-    res.status(200).json({ success: true, data: "user updated!" });
 };
 
 // set user online status (SET by id)
