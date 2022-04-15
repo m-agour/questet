@@ -1,8 +1,17 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from "react";
 import Question from "./Question";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 class Creat_exam extends Component {
+  constructor(props) {
+    super(props);
+    if (!Cookies.get("auth")) {
+      Cookies.set("redirect", "/create_exam");
+      this.props.history.push("/");
+    }
+  }
   state = { title: "", duration: "", startTime: "", questions: {} };
   count = 1;
 
@@ -11,10 +20,43 @@ class Creat_exam extends Component {
       questions: { ...this.state.questions, [id]: question },
     });
   };
-  submit = () => {
+  submit = (event) => {
     console.log(this.state);
+    event.preventDefault();
+
+    let data = {
+      title: this.state.title,
+      password: this.loginPassword.current.value,
+    };
+
+    console.log(data);
+    axios.post("http://127.0.0.1:5000/api/exam", data).then(
+      (response) => {
+        console.log(response);
+        this.props.history.push("/");
+      },
+      (error) => {
+        this.props.history.push("/create_exam");
+        console.log(error);
+      }
+    );
+  };
+  addQuestion = () => {
+    this.count += 1;
+    this.forceUpdate();
   };
 
+  updateTitle = (e) => {
+    e.persist();
+    this.setState({
+      title: this.title.value,
+    });
+  };
+
+  removeQuestion = () => {
+    if (this.count > 1) this.count -= 1;
+    this.forceUpdate();
+  };
   render() {
     return (
       <div>
@@ -126,6 +168,8 @@ class Creat_exam extends Component {
               Title:
               <input
                 type="text"
+                ref={(ref) => (this.title = ref)}
+                onChange={this.updateTitle}
                 style={{
                   marginLeft: "17px",
                   width: "633.4px",
@@ -140,7 +184,15 @@ class Creat_exam extends Component {
               />
             </h1>
             <div className="container">
-              <Question id={1} onDataChange={this.handleChange} />
+              {(() => {
+                const rows = [];
+                for (let i = 0; i < this.count; i++) {
+                  rows.push(
+                    <Question id={i + 1} onDataChange={this.handleChange} />
+                  );
+                }
+                return rows;
+              })()}
 
               <div
                 className="d-flex d-xxl-flex justify-content-center justify-content-xxl-center"
@@ -153,7 +205,7 @@ class Creat_exam extends Component {
                 <button
                   type="button"
                   className="btn"
-                  onClick={() => this.removeFormFields()}
+                  onClick={() => this.removeQuestion()}
                   style={{
                     background: "#c90101",
                     fontWeight: "bold",
@@ -167,7 +219,7 @@ class Creat_exam extends Component {
                 <button
                   className="btn"
                   type="button"
-                  onClick={() => this.addFormFields()}
+                  onClick={this.addQuestion}
                   style={{
                     background: "#00a210",
                     fontWeight: "bold",

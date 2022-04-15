@@ -6,7 +6,8 @@ class Answer extends Component {
   };
   id = this.props.id;
 
-  handleChange = () => {
+  handleChange = (e) => {
+    e.persist();
     var data = this.data.value;
     var correct = this.correct.checked;
     this.props.onDataChange(this.id, { data: data, correct: correct });
@@ -34,6 +35,7 @@ class Answer extends Component {
                 {this.id}:&nbsp;&nbsp;
               </label>
               <input
+                required
                 type="text"
                 name="name"
                 ref={(ref) => (this.data = ref)}

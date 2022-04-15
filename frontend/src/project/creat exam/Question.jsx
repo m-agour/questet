@@ -3,14 +3,15 @@ import Answer from "./Answer";
 
 class Question extends Component {
   state = { data: "", type: "S", answers: {} };
-  count = 1;
+  count = 2;
   handleChange = (id, answer) => {
     this.setState({
       answers: { ...this.state.answers, [id]: answer },
     });
   };
 
-  updateQuestion = () => {
+  updateQuestion = (e) => {
+    e.persist();
     this.setState({
       data: this.data.value,
     });
@@ -21,16 +22,21 @@ class Question extends Component {
     this.props.onDataChange(this.props.id, this.state);
   };
 
-  updateType = () => {
+  updateType = (e) => {
+    e.persist();
     this.setState({
       type: this.type.checked ? "S" : "M",
     });
     this.handleQuestionChange();
   };
 
-  submit = () => {
-    console.log(this.state);
-    this.props.onDataChange(this.props.id, this.state);
+  addAnswer = () => {
+    this.count += 1;
+    this.forceUpdate();
+  };
+  removeAnswer = () => {
+    if (this.count > 2) this.count -= 1;
+    this.forceUpdate();
   };
 
   render() {
@@ -39,7 +45,7 @@ class Question extends Component {
         className="row"
         style={{ paddingTop: "23px", paddingBottom: "17px" }}
       >
-        <div className="col">
+        <div className="col" onChange={this.submit}>
           <div className="card" style={{ borderRadius: "8px" }}>
             <div
               className="card-body"
@@ -71,7 +77,7 @@ class Question extends Component {
                   }}
                   placeholder="Type your question."
                   ref={(ref) => (this.data = ref)}
-                  onChange={this.updateQuestion}
+                  onChange={this.updateQuestion.bind(this)}
                   required
                   defaultValue={""}
                 />
@@ -114,7 +120,7 @@ class Question extends Component {
                   <input
                     className="form-check-input"
                     ref={(ref) => (this.type = ref)}
-                    onChange={this.updateType}
+                    onChange={this.updateType.bind(this)}
                     type="radio"
                     id="s_1"
                     defaultValue="s_1"
@@ -135,7 +141,7 @@ class Question extends Component {
                 >
                   <input
                     className="form-check-input"
-                    onChange={this.updateType}
+                    onChange={this.updateType.bind(this)}
                     type="radio"
                     id="m_1"
                     defaultValue="m_1"
@@ -163,8 +169,15 @@ class Question extends Component {
               >
                 Answers:
               </h4>
-              <Answer onDataChange={this.handleChange} id={1} />
-              <Answer onDataChange={this.handleChange} id={2} />
+              {(() => {
+                const rows = [];
+                for (let i = 0; i < this.count; i++) {
+                  rows.push(
+                    <Answer id={i + 1} onDataChange={this.handleChange} />
+                  );
+                }
+                return rows;
+              })()}
               <div>
                 <div
                   className="d-flex d-xxl-flex justify-content-center justify-content-xxl-center"
@@ -175,7 +188,7 @@ class Question extends Component {
                   }}
                 >
                   <button
-                    onClick={this.submit}
+                    onClick={this.addAnswer}
                     className="btn"
                     type="button"
                     style={{
@@ -187,6 +200,7 @@ class Question extends Component {
                     Add answer
                   </button>
                   <button
+                    onClick={this.removeAnswer}
                     className="btn"
                     type="button"
                     style={{
