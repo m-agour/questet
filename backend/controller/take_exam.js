@@ -35,6 +35,9 @@ exports.getMyExams = async(req, res) => {
 
 exports.takeExam = async(req, res) => {
     try {
+        if (!req.body.userId) return res.status(403).json("missing userId");
+        if (!req.body.examId) return res.status(403).json("missing examId");
+
         let user = await User.findOne({
             where: { id: parseInt(req.body.userId) },
         });
