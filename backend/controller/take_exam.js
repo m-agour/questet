@@ -3,18 +3,12 @@ const db = require(dirname(require.main.filename) + "/models");
 const User = db.user;
 const Exam = db.exam;
 
-// try{}catch(err){return res.status(500).json(err);}
-
-/* first public exams from root */ // NOT TESTED YET
-
-// get public exam by id (GET)
 exports.getPublicExam = async(req, res) => {
     try {
         let exam = await User.findOne({
             where: { id: parseInt(req.params.examId) },
         });
-        if (!exam) 
-            return res.status(404).json("exam does not exist.");
+        if (!exam) return res.status(404).json("exam does not exist.");
         res.status(200).json(exam);
     } catch (err) {
         res.status(500).json(err);
@@ -44,21 +38,19 @@ exports.takeExam = async(req, res) => {
         let user = await User.findOne({
             where: { id: parseInt(req.body.userId) },
         });
-        if (!user) 
-            return res.status(404).json("user not found!");
+        if (!user) return res.status(404).json("user not found!");
         let exam = await User.findOne({
             where: { id: parseInt(req.body.examId) },
         });
-        if (!exam) 
-            return res.status(404).json("exam not found!");
-        
-        let user_exam = await db.user_exam.create({
+        if (!exam) return res.status(404).json("exam not found!");
+
+        let take_exam = await db.take_exam.create({
             userId: req.body.userId,
             examId: req.body.examId,
             timeStarted: Date.now(),
         });
-        
-        res.status(200).json(user_exam);
+
+        res.status(200).json(take_exam);
     } catch (err) {
         console.log(err);
         res.status(500).json({ success: false, data: err });
@@ -67,16 +59,15 @@ exports.takeExam = async(req, res) => {
 
 exports.finishExam = async(req, res) => {
     try {
-        let user_exam = await db.user_exam.update({
+        let take_exam = await db.take_exam.update({
             timeFinished: Date.now(),
         }, {
-            where: { id: req.body.userExamId },
+            where: { id: req.body.takeExamId },
         });
-        
-        if (!user_exam[0]) 
-            return res.status(404).json("user_exam not found!");
-        
-        res.status(200).json(user_exam);
+
+        if (!take_exam[0]) return res.status(404).json("take_exam not found!");
+
+        res.status(200).json(take_exam);
     } catch (err) {
         console.log(err);
         res.status(500).json({ success: false, data: err });
@@ -88,12 +79,11 @@ exports.getTakenExams = async(req, res) => {
         let user = await User.findOne({
             where: { id: parseInt(req.params.userId) },
         });
-        if (!user) 
-            return res.status(404).json("user not found!");
-        let user_exams = await db.user_exam.findAll({
+        if (!user) return res.status(404).json("user not found!");
+        let take_exams = await db.take_exam.findAll({
             where: { userId: req.params.userId },
         });
-        res.status(200).json(user_exams);
+        res.status(200).json(take_exams);
     } catch (err) {
         console.log(err);
         res.status(500).json({ success: false, data: err });
