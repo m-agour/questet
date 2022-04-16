@@ -9,7 +9,7 @@ class Creat_exam extends Component {
     super(props);
     if (!Cookies.get("auth")) {
       Cookies.set("redirect", "/create_exam");
-      this.props.history.push("/");
+      this.props.history.push("/auth");
     }
   }
   state = {
@@ -27,29 +27,54 @@ class Creat_exam extends Component {
   };
 
   handleAnswerChange = (questionId, answerId, answer) => {
+    if (!this.questions[questionId]) this.questions[questionId] = {}
     if (!this.questions[questionId].answers)
       this.questions[questionId].answers = {};
     this.questions[questionId].answers[answerId] = answer;
-    console.log(this.questions);
   };
 
+
   submit = (event) => {
-    console.log(this.state);
     event.preventDefault();
 
-    let data = {
-      title: this.state.title,
-      password: this.loginPassword.current.value,
-    };
-
-    console.log(data);
-    axios.post("http://127.0.0.1:5000/api/exam", data).then(
+    // let data = {
+    //   title: this.state.title,
+    //   password: this.loginPassword.current.value,
+    // };
+    let examData = 
+    {
+      "title": this.state.title,
+       "userId": parseInt(Cookies.get("auth"))
+   }
+    axios.post("http://127.0.0.1:5000/api/exam", examData).then(
       (response) => {
-        console.log(response);
-        this.props.history.push("/");
+        let examId = response.data.data.id;
+        for (let i in this.questions){
+          let question = this.questions[i]
+          let data = question.data
+          let type = question.type
+          axios.post("http://127.0.0.1:5000/api/question", examData).then(
+            (response) => {
+              console.log(response)
+              // let examId = response.data.data.id;
+              // for (let i in this.questions){
+              //   let question = this.questions[i]
+              //   let data = question.data
+              //   let type = question.type
+                
+              // } 
+              // this.props.history.push("/");
+            },
+            (error) => {
+              // this.props.history.push("/create_exam");
+              console.log(error);
+            }
+          );
+        } 
+        // this.props.history.push("/");
       },
       (error) => {
-        this.props.history.push("/create_exam");
+        // this.props.history.push("/create_exam");
         console.log(error);
       }
     );
@@ -72,6 +97,7 @@ class Creat_exam extends Component {
   };
   render() {
     return (
+      
       <div>
         <meta charSet="utf-8" />
         <meta
@@ -79,10 +105,17 @@ class Creat_exam extends Component {
           content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
         />
         <title>Home - Brand</title>
-        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i"
+        />
+                <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"
+        />
+        <link
+          rel="stylesheet"
+          href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css"
         />
         <link rel="stylesheet" href="assets/css/BreveSansTitle-Book.css" />
         <link
