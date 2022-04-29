@@ -16,52 +16,52 @@ class Login extends React.Component {
     if (Cookies.get("auth")) this.props.history.push("/");
   }
 
-  login = (event) => {
-    event.preventDefault();
+  // login = (event) => {
+  //   event.preventDefault();
 
-    let data = {
-      email: this.loginEmail.current.value,
-      password: this.loginPassword.current.value,
-    };
-    console.log(data);
-    axios.post("http://127.0.0.1:5000/api/auth/login", data).then(
-      (response) => {
-        console.log(response);
-        this.props.history.push("/");
-        if (Cookies.get("redirect")) {
-          console.log(Cookies.get("redirect"));
-          this.props.history.push(Cookies.get("redirect"));
-          Cookies.set("redirect", null);
-        } else this.props.history.push("/");
-        Cookies.set("auth", response.data.data.id);
-      },
-      (error) => {
-        this.props.history.push("/auth");
-        console.log(error);
-      }
-    );
-  };
+  //   let data = {
+  //     email: this.loginEmail.current.value,
+  //     password: this.loginPassword.current.value,
+  //   };
+  //   console.log(data);
+  //   axios.post("http://127.0.0.1:5000/api/auth/login", data).then(
+  //     (response) => {
+  //       console.log(response);
+  //       this.props.history.push("/");
+  //       if (Cookies.get("redirect")) {
+  //         console.log(Cookies.get("redirect"));
+  //         this.props.history.push(Cookies.get("redirect"));
+  //         Cookies.set("redirect", null);
+  //       } else this.props.history.push("/");
+  //       Cookies.set("auth", response.data.data.id);
+  //     },
+  //     (error) => {
+  //       this.props.history.push("/auth");
+  //       console.log(error);
+  //     }
+  //   );
+  // };
 
-  signup = (event) => {
-    let data = {
-      email: this.email.current.value,
-      firstName: this.firstName.current.value,
-      password: this.password.current.value,
-    };
-    event.preventDefault();
+  // signup = (event) => {
+  //   let data = {
+  //     email: this.email.current.value,
+  //     firstName: this.firstName.current.value,
+  //     password: this.password.current.value,
+  //   };
+  //   event.preventDefault();
 
-    console.log(data);
-    axios.post("http://127.0.0.1:5000/api/user", data).then(
-      (response) => {
-        console.log(response);
-        this.props.history.push("/home");
-      },
-      (error) => {
-        console.log(error);
-        this.props.history.push("/");
-      }
-    );
-  };
+  //   console.log(data);
+  //   axios.post("http://127.0.0.1:5000/api/user", data).then(
+  //     (response) => {
+  //       console.log(response);
+  //       this.props.history.push("/home");
+  //     },
+  //     (error) => {
+  //       console.log(error);
+  //       this.props.history.push("/");
+  //     }
+  //   );
+  // };
 
   render() {
     return (

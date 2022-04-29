@@ -7,8 +7,9 @@ import {
 import Login from "./project/Login";
 import Home from "./project/home/index";
 import Profile from "./project/profile/profile";
-import Creat_exam from "./project/creat exam/creat_exam";
+import Creat_exam from "./project/creat_exam/creat_exam";
 import Take_exam from "./project/take_exam/take_exam";
+
 
 
 export default function App() {
