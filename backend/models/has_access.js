@@ -4,6 +4,7 @@ module.exports = function(sequelize, DataTypes) {
         "has_access", {
             examId: {
                 type: DataTypes.INTEGER,
+                onDelete: "CASCADE",
                 allowNull: false,
                 references: {
                     model: "exam",
@@ -12,6 +13,7 @@ module.exports = function(sequelize, DataTypes) {
             },
             userId: {
                 type: DataTypes.INTEGER,
+                onDelete: "CASCADE",
                 allowNull: false,
                 references: {
                     model: "user",

@@ -12,6 +12,7 @@ module.exports = function(sequelize, DataTypes) {
             },
             tagTitle: {
                 type: DataTypes.STRING(45),
+                onDelete: "CASCADE",
                 allowNull: false,
                 references: {
                     model: "tag",

@@ -10,6 +10,7 @@ module.exports = function(sequelize, DataTypes) {
             },
             questionId: {
                 type: DataTypes.INTEGER,
+                onDelete: "CASCADE",
                 allowNull: false,
                 references: {
                     model: "question",
@@ -21,7 +22,7 @@ module.exports = function(sequelize, DataTypes) {
                 allowNull: true,
             },
             correct: {
-                type: DataTypes.CHAR(1),
+                type: DataTypes.BOOLEAN,
                 allowNull: true,
             },
         }, {

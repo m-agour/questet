@@ -23,6 +23,7 @@ module.exports = function (sequelize, DataTypes) {
       },
       examId: {
         type: DataTypes.INTEGER,
+        onDelete: "CASCADE",
         allowNull: false,
         references: {
           model: "exam",

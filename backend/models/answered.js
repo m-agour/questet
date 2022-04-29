@@ -3,6 +3,7 @@ module.exports = function(sequelize, DataTypes) {
   return sequelize.define('answered', {
     userExamId: {
       type: DataTypes.INTEGER,
+      onDelete: "CASCADE",
       allowNull: false,
       references: {
         model: 'take_exam',
@@ -11,6 +12,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     questionId: {
       type: DataTypes.INTEGER,
+      onDelete: "CASCADE",
       allowNull: false,
       references: {
         model: 'question',

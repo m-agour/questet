@@ -4,6 +4,7 @@ module.exports = function(sequelize, DataTypes) {
         "message", {
             userId: {
                 type: DataTypes.INTEGER,
+                onDelete: "CASCADE",
                 allowNull: false,
                 references: {
                     model: "user",
@@ -12,6 +13,7 @@ module.exports = function(sequelize, DataTypes) {
             },
             userId1: {
                 type: DataTypes.INTEGER,
+                onDelete: "CASCADE",
                 allowNull: false,
                 references: {
                     model: "user",
