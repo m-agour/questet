@@ -290,10 +290,8 @@ return (
               >
                 Answers:
               </h4>
-              <form>
-        {inputFields.map((input, index) => {
-          return (
-              <div key={index}>
+
+              <div >
               <div style={{ marginBottom: "19px", marginTop: "6px" }}>
                 <div className="row">
                   <div
@@ -607,9 +605,7 @@ return (
                     Remove answer
                   </button>
             </div>
-            )
-            })}
-            </form>
+
               <div>
                 
                 <div
