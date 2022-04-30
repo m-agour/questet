@@ -4,7 +4,7 @@ import Answer from "./answer";
 
 function Creat_exam(){
   const [inputFields, setInputFields] = useState([
-    { quistion: '', image: '',SandM: '' ,answer: '' }
+    { quistion: '', image: '',SandM: '' ,answer: '',title:'' }
   ])
   const handleFormChange = (index, event) => {
     let data = [...inputFields];
@@ -329,6 +329,7 @@ return (
               <button
                 className="btn"
                 type="button"
+                onClick={() => alert(inputFields)}
                 style={{
                   background: "#ffffff",
                   height: "60px",
