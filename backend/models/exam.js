@@ -16,6 +16,7 @@ module.exports = function (sequelize, DataTypes) {
       totalPoints: {
         type: DataTypes.FLOAT,
         allowNull: true,
+        defaultValue: 0.0,
       },
       userId: {
         type: DataTypes.INTEGER,
@@ -32,6 +33,10 @@ module.exports = function (sequelize, DataTypes) {
       },
       duration: {
         type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      startAt: {
+        type: DataTypes.DATE,
         allowNull: true,
       },
     },

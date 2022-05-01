@@ -1,135 +1,148 @@
 const { dirname } = require("path");
+const Sequelize = require("sequelize");
 const db = require(dirname(require.main.filename) + "/models");
 const Exam = db.exam;
 const user_exam = db.user_exam;
 const User = db.user;
 const Question = db.question;
 
-// create exam
-exports.createExam = async(req, res) => {
-    // - create title
-    // checking email typos.
-    if (!req.body.userId)
-        return res.status(400).json({ success: false, data: "missing userId." });
-    if (!req.body.title)
-        return res.status(400).json({ success: false, data: "missing title." });
-    let exist = await User.count({ where: { id: req.body.userId } });
-    console.log(exist);
-    if (!exist)
-        return res
-            .status(404)
-            .json({ success: false, data: "user does not exist." });
+// ============== create exam ==================
+exports.createExam = async (req, res) => {
+  // check user
+  if (!req.body.userId)
+    return res.status(400).json({ success: false, data: "missing userId." });
 
-    let exam = await Exam.create({
-        title: req.body.title,
-        userId: req.body.userId,
+  // check title
+  if (!req.body.title)
+    return res.status(400).json({ success: false, data: "missing title." });
+  let exist = await User.count({ where: { id: req.body.userId } });
+  if (!exist) {
+    return res
+      .status(404)
+      .json({ success: false, data: "user does not exist." });
+  }
+
+  // timing and duration
+  const letTimeStart = req.body.startAt; // e.g:'2022-05-01 05:00:00'
+  const letTimeEndt = req.body.letTimeEndt; // e.g:'2022-05-01 05:00:00'
+
+  let timeStart = new Date(letTimeStart);
+  let timeEnd = new Date(letTimeEndt);
+
+  let Difference_In_Time = timeEnd.getTime() - timeStart.getTime();
+  let Difference_In_Hours = Difference_In_Time / (1000 * 3600);
+
+  let exam = await Exam.create({
+    title: req.body.title,
+    userId: req.body.userId,
+    public: req.body.public,
+    startAt: letTimeStart,
+    duration: Difference_In_Hours,
+  });
+  if (!exam)
+    return res
+      .status(404)
+      .json({ success: false, data: "could not create exam" });
+
+  res.status(200).json({ success: true, data: exam });
+};
+
+// ==================== public ======================================
+//  get Public exam by id
+exports.getPublicExam = async (req, res) => {
+  try {
+    let exam = await Exam.findOne({
+      where: { id: parseInt(req.params.id) },
     });
-    if (!exam)
-        return res
-            .status(404)
-            .json({ success: false, data: "could not create exam" });
-
-    res.status(200).json({ success: true, data: exam });
+    if (!exam) return res.status(404).json("exam does not exist.");
+    // check if not public
+    if (!exam.public) return res.status(400).json("exam is not public.");
+    return res.status(200).json(exam);
+  } catch (err) {
+    return res.status(500).json(err);
+  }
 };
-
-// exports.createExam = async(req, res) => {
-//     // - create title
-
-//     if (!req.body.userId)
-//         return res
-//             .status(400)
-//             .json({ success: false, data: "missing email userId." });
-//     let exist = await User.count({ where: { id: req.body.userId } });
-//     console.log(exist);
-
-//     let exam = await Exam.create({
-//         title: req.body.title,
-//         userId: req.body,
-//     });
-
-//     // create Time
-//     // let str_year = req.body;
-//     // let str_Hour = req.body;
-//     // let str_mint = req.body;
-
-//     // let str_month = req.body;
-//     // let str_day = req.body;
-//     // let end_Hour = req.body;
-//     // let end_mint = req.body;
-//     // let end_year = req.body;
-//     // let end_month = req.body;
-//     // let end_day = req.body;
-//     let time_start = new Date(
-//         req.body.str_year,
-//         req.body.str_month,
-//         req.body.str_day,
-//         req.body.str_Hour,
-//         req.body.str_mint
-//     );
-//     let time_end = new Date(
-//         req.body.end_year,
-//         req.body.end_month,
-//         req.body.end_day,
-//         req.body.end_Hour,
-//         req.body.end_mint
-//     );
-//     let time_current = new Date();
-
-//     if (time_end.getTime() == time_current.getTime()) {
-//         let finish = await Exam.create({ finishExam: 1 });
-//         return res.status(200).json("the exam is finish.");
-//     }
-//     let Difference_In_Time = time_end.getTime() - time_start.getTime();
-//     let Difference_In_Hours = Difference_In_Time / (1000 * 3600);
-//     let stillEcam = await Exam.create({
-//         duration: Difference_In_Hours,
-//         finishExam: 0,
-//     });
-//     console.log(stillEcam);
-// };
-// points
-exports.getEquations = async(req, res) => {
-    // - points
-    let CountPoints = await Question.findAll({
-        attributes: [
-            "id",
-            "points", [sequelize.fn("sum", sequelize.col("points")), "totalPoints"],
-        ],
-        where: { examId: 20 }, // 20 => is just example
-    });
-    return res.json(CountPoints);
-};
-
-// let questions = await Question.findAll({
-//   where: { examId: exam.id },
-// });
-// let TotalPoints = await db.exam.create({ totalPoints: CountPoints });
-// return res.status(200).json(Title, TotalPoints);
-
-// - total points
-
-// // -public
-// let PublicExam = await db.exam.create({ public: req.body.public });
-
-// get public exam by id (GET)
-exports.getPublicExam = async(req, res) => {
-    try {
-        let exam = await User.findOne({
-            where: { id: parseInt(req.params.examId) },
-        });
-        if (!exam) return res.status(404).json("exam does not exist.");
-        return res.status(200).json(exam);
-    } catch (err) {
-        return res.status(500).json(err);
-    }
-};
-
 // get Public exams
-exports.getPublicExams = async(req, res) => {
-    let exams = await Exam.findAll({ where: { public: true } });
-    if (!exams)
-        return res
-            .status(404)
-            .json({ success: false, data: "there is no available puplic exams " });
-    return res.status(200).json({ success: true, data: exams });
+exports.getPublicExams = async (req, res) => {
+  let exams = await Exam.findAll({ where: { public: true } });
+  if (!exams)
+    return res
+      .status(404)
+      .json({ success: false, data: "there is no available puplic exams " });
+  return res.status(200).json({ success: true, data: exams });
 };
+// =============================================================================
+
+// ======================= update exam(edit) ===================================
+exports.editExam = async (req, res) => {
+  try {
+    let exam = await Exam.findOne({ where: { id: parseInt(req.params.id) } });
+    if (!exam) {
+      return res
+        .status(404)
+        .json({ success: false, data: "exam does not exist." });
+    }
+    if (req.body.userId) {
+      let userid = await Exam.count({
+        where: {
+          userId: req.body.userId,
+        },
+      });
+      if (!userid)
+        return res
+          .status(404)
+          .json({ success: false, data: "user does not exist." });
+    }
+
+    let totalPoint = await Question.findOne({
+      attributes: [
+        "examId",
+        [Sequelize.fn("sum", Sequelize.col("points")), "total"],
+      ],
+      where: { examId: parseInt(req.params.id) },
+      group: ["examId"],
+      raw: true,
+    });
+    const final = totalPoint.total;
+    let setTotal = await Exam.update(
+      { totalPoints: final },
+      {
+        where: { id: parseInt(req.params.id) },
+      }
+    );
+    let result = await Exam.update(req.body, {
+      where: { id: parseInt(req.params.id) },
+    });
+    if (!result[0])
+      return res
+        .status(400)
+        .json({ success: false, data: "could not update exam data" });
+    res.status(200).json({ success: true, data: `exam updated!` });
+  } catch (err) {
+    res.status(500).json({ success: false, data: err });
+  }
+};
+// =============================================================================
+// ======================= delete exam =========================================
+exports.deleteExam = async (req, res) => {
+  try {
+    // check if exam exist
+    let exam = await Exam.count({ where: { id: parseInt(req.params.id) } });
+    if (!exam)
+      return res
+        .status(404)
+        .json({ success: false, data: "exam does not exist." });
+
+    let result = await Exam.destroy({ where: { id: parseInt(req.params.id) } });
+
+    if (!result)
+      return res
+        .status(400)
+        .json({ success: false, data: "could not delete exam" });
+    res.status(200).json({ success: true, data: "delete updated!" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ success: false, data: err });
+  }
+};
+// =============================================================================
