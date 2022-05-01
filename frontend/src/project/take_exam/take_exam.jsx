@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import "./assets/css/style.min.css"
 
 class Take_exam extends Component {
 

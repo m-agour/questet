@@ -1,7 +1,25 @@
 import React, { Component, useState } from "react";
 
 function Answer(){
+  const [inputFields, setInputFields] = useState([
+    { answer: '', rightanswer: '' }
+  ])
+ const handleFormChange = (index, event) => {
+    let data = [...inputFields];
+    data[index][event.target.name] = event.target.value;
+    setInputFields(data);
+    console.log(data)
+ }
+ const addFields = () => {
+  let newfield = { answer: '', rightanswer: ''  }
 
+  setInputFields([...inputFields, newfield])
+}
+const removeFields = (index) => {
+  let data = [...inputFields];
+  data.splice(index, 1)
+  setInputFields(data)
+}
     return (
         <div>
             <h4
@@ -16,7 +34,10 @@ function Answer(){
               >
                 Answers:
               </h4>
-              <div>
+              <form>
+        {inputFields.map((input, index) => {
+          return (
+              <div key={index}>
               <div style={{ marginBottom: "19px", marginTop: "6px" }}>
                 <div className="row">
                   <div
@@ -37,7 +58,9 @@ function Answer(){
                     </label>
                     <input
                       type="text"
-                      name="name"
+                      name="answer"
+                      value={input.answer}
+                      onChange={event => handleFormChange(index, event)}
                       style={{
                         width: "95%",
                         height: "46px",
@@ -66,7 +89,9 @@ function Answer(){
                           <input
                             className="form-check-input"
                             type="radio"
-                            name="1"
+                            name="rightanswer"
+                            value={input.rightanswer}
+                            onChange={event => handleFormChange(index, event)}
                             style={{
                               fontWeight: "bold",
                               color: "var(--bs-indigo)",
@@ -91,8 +116,24 @@ function Answer(){
                 </div>
               </div>
               <div style={{ marginBottom: "19px", marginTop: "6px" }}></div>
+              <button
+                    className="btn"
+                    type="button"
+                    onClick={() => removeFields(index)}
+                    style={{
+                      background: "#c90101",
+                      fontWeight: "bold",
+                      color: "rgb(255,255,255)",
+                    }}
+                  >
+                    Remove answer
+                  </button>
             </div>
+            )
+            })}
+            </form>
               <div>
+                
                 <div
                   className="d-flex d-xxl-flex justify-content-center justify-content-xxl-center"
                   style={{
@@ -104,6 +145,7 @@ function Answer(){
                   <button
                     className="btn"
                     type="button"
+                    onClick={addFields}
                     style={{
                       background: "#00a210",
                       fontWeight: "bold",
@@ -112,17 +154,7 @@ function Answer(){
                   >
                     Add answer
                   </button>
-                  <button
-                    className="btn"
-                    type="button"
-                    style={{
-                      background: "#c90101",
-                      fontWeight: "bold",
-                      color: "rgb(255,255,255)",
-                    }}
-                  >
-                    Remove answer
-                  </button>
+                  
                 </div>
             </div>
         </div>

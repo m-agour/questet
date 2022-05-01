@@ -1,8 +1,27 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import Answer from "./answer";
 
 
 function Creat_exam(){
+  const [inputFields, setInputFields] = useState([
+    { quistion: '', image: '',SandM: '' ,answer: '',title:'' }
+  ])
+  const handleFormChange = (index, event) => {
+    let data = [...inputFields];
+    data[index][event.target.name] = event.target.value;
+    setInputFields(data);
+    console.log(data)
+ }
+  const addFields = () => {
+    let newfield = { quistion: '', image: '',SandM: '' ,answer: '' }
+  
+    setInputFields([...inputFields, newfield])
+  }
+  const removeFields = (index) => {
+    let data = [...inputFields];
+    data.splice(index, 1)
+    setInputFields(data)
+  }
 
 return (
       
@@ -136,8 +155,12 @@ return (
               required
             />
           </h1>
+
           <div  className="container">
-          <div
+          <form>
+        {inputFields.map((input, index) => {
+          return (
+          <div key={index}
         className="row"
         style={{ paddingTop: "23px", paddingBottom: "17px" }}
       >
@@ -164,6 +187,9 @@ return (
                 Question:&nbsp;
                 <textarea
                   className="d-flex align-items-center"
+                  name="quistion"
+                  value={input.quistion}
+                  onChange={event => handleFormChange(index, event)}
                   style={{
                     width: "80%",
                     marginLeft: "21px",
@@ -196,7 +222,11 @@ return (
                   <br />
                   <br />
                 </h4>
-                <input type="file" />
+                <input 
+                name="image"
+                 value={input.image}
+                 onChange={event => handleFormChange(index, event)}
+                 type="file" />
               </div>
               <div
                 className="d-flex justify-content-center align-items-center align-content-center"
@@ -215,8 +245,8 @@ return (
                     className="form-check-input"
                     type="radio"
                     id="s_1"
-                    defaultValue="s_1"
-                    name="t_1"
+                    name="SandM"
+                    
                     defaultChecked
                   />
                   <label
@@ -235,8 +265,8 @@ return (
                     className="form-check-input"
                     type="radio"
                     id="m_1"
-                    defaultValue="m_1"
-                    name="t_1"
+                   
+                    name="SandM"
                   />
                   <label
                     className="form-check-label"
@@ -247,24 +277,14 @@ return (
                   </label>
                 </div>
               </div>
-              <Answer/>  
+              <Answer /> 
             </div>
           </div>
         </div>
-      </div>
-
-            <div
-              className="d-flex d-xxl-flex justify-content-center justify-content-xxl-center"
-              style={{
-                paddingLeft: "13px",
-                marginTop: "22px",
-                marginRight: "27px",
-              }}
-            >
-                
-              <button
+        <button
                 type="button"
                 className="btn"
+                onClick={() => removeFields(index)}
                 style={{
                   background: "#c90101",
                   fontWeight: "bold",
@@ -275,9 +295,22 @@ return (
               >
                 Remove question
               </button>
+      </div>
+      )
+      })}
+      </form>
+            <div
+              className="d-flex d-xxl-flex justify-content-center justify-content-xxl-center"
+              style={{
+                paddingLeft: "13px",
+                marginTop: "22px",
+                marginRight: "27px",
+              }}
+            >
               <button
                 className="btn"
                 type="button"
+                onClick={addFields}
                 style={{
                   background: "#00a210",
                   fontWeight: "bold",
@@ -296,6 +329,7 @@ return (
               <button
                 className="btn"
                 type="button"
+                onClick={() => alert(inputFields)}
                 style={{
                   background: "#ffffff",
                   height: "60px",
