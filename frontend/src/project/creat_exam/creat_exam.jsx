@@ -4,16 +4,21 @@ import Answer from "./answer";
 
 function Creat_exam(){
   const [inputFields, setInputFields] = useState([
-    { quistion: '', image: '',SandM: '' ,answer1: '',answer2: '',answer3: '',answer4: '',title:'' }
+    { quistion: '', image: '',SandM: '' ,answer1: '',answer2: '',answer3: '',answer4: '',rightanswer:'' }
   ])
-  const handleFormChange = (index, event) => {
+  const [title, settitle] = useState('')
+  const handletitleChange = event=> {
+    settitle({titleval:event.target.value});
+    console.log(title)
+  };
+  const handleFormChange = (index,event) => {
     let data = [...inputFields];
     data[index][event.target.name] = event.target.value;
     setInputFields(data);
     console.log(data)
  }
   const addFields = () => {
-    let newfield = { quistion: '', image: '',SandM: '' ,answers: '',title:''  }
+    let newfield = { quistion: '', image: '',SandM: '' ,answer1: '',answer2: '',answer3: '',answer4: '',rightanswer:'' }
   
     setInputFields([...inputFields, newfield])
   }
@@ -22,7 +27,10 @@ function Creat_exam(){
     data.splice(index, 1)
     setInputFields(data)
   }
-
+  const submit = (e) => {
+    e.preventDefault();
+    console.log(inputFields,title)
+}
 return (
       
     <div>
@@ -129,7 +137,7 @@ return (
         <section
           className="shadow-lg"
           style={{ background: "#3c65c4", paddingBottom: "62px" }}
-        >
+        > 
           <h1
             style={{
               paddingLeft: "0px",
@@ -141,7 +149,8 @@ return (
             Title:
             <input
               type="text"
-
+              name="title"
+              onChange={handletitleChange}
               style={{
                 marginLeft: "17px",
                 width: "633.4px",
@@ -155,7 +164,6 @@ return (
               required
             />
           </h1>
-
           <div  className="container">
           <form>
         {inputFields.map((input, index) => {
@@ -331,41 +339,17 @@ return (
                     style={{ width: "20%" }}
                   >
                     <div className="d-flex align-items-center">
-                      <input
-                        type="checkbox"
-                        id="r_1_1"
-                        style={{
+                    <label style={{
                           fontWeight: "bold",
                           color: "var(--bs-indigo)",
-                          fontSize: "21px",
-                        }}
-                      />
-                      <div className="form-check">
-                          <input
-                            className="form-check-input"
-                            type="radio"
-                            name="rightanswer"
-                            value={input.rightanswer}
-                            onChange={event => handleFormChange(index, event)}
-                            style={{
-                              fontWeight: "bold",
-                              color: "var(--bs-indigo)",
-                              fontSize: "21px",
-                            }}
-                            defaultChecked
-                          />
-                        <label
-                          className="form-check-label"
-                          htmlFor="r_1_1"
-                          style={{
-                            fontWeight: "bold",
-                            color: "var(--bs-indigo)",
-                            fontSize: "21px",
-                          }}
-                        >
-                          Right Answer
-                        </label>
-                      </div>
+                          fontSize: "21px",}}>
+                      <input
+                        type="radio"
+                        name="rightanswer"
+                        value="rightanswer1"
+                        onChange={event => handleFormChange(index, event)}
+                      /> Right Answer
+                      </label>
                     </div>
                   </div>
                   <div
@@ -405,41 +389,17 @@ return (
                     style={{ width: "20%" }}
                   >
                     <div className="d-flex align-items-center">
-                      <input
-                        type="checkbox"
-                        id="r_1_1"
-                        style={{
+                    <label style={{
                           fontWeight: "bold",
                           color: "var(--bs-indigo)",
-                          fontSize: "21px",
-                        }}
-                      />
-                      <div className="form-check">
-                          <input
-                            className="form-check-input"
-                            type="radio"
-                            name="rightanswer"
-                            value={input.rightanswer}
-                            onChange={event => handleFormChange(index, event)}
-                            style={{
-                              fontWeight: "bold",
-                              color: "var(--bs-indigo)",
-                              fontSize: "21px",
-                            }}
-                            defaultChecked
-                          />
-                        <label
-                          className="form-check-label"
-                          htmlFor="r_1_1"
-                          style={{
-                            fontWeight: "bold",
-                            color: "var(--bs-indigo)",
-                            fontSize: "21px",
-                          }}
-                        >
-                          Right Answer
-                        </label>
-                      </div>
+                          fontSize: "21px",}}>
+                      <input
+                        type="radio"
+                        name="rightanswer"
+                        value="rightanswer2"
+                        onChange={event => handleFormChange(index, event)}
+                      /> Right Answer
+                      </label>
                     </div>
                   </div>
                   <div
@@ -479,41 +439,17 @@ return (
                     style={{ width: "20%" }}
                   >
                     <div className="d-flex align-items-center">
-                      <input
-                        type="checkbox"
-                        id="r_1_1"
-                        style={{
+                    <label style={{
                           fontWeight: "bold",
                           color: "var(--bs-indigo)",
-                          fontSize: "21px",
-                        }}
-                      />
-                      <div className="form-check">
-                          <input
-                            className="form-check-input"
-                            type="radio"
-                            name="rightanswer"
-                            value={input.rightanswer}
-                            onChange={event => handleFormChange(index, event)}
-                            style={{
-                              fontWeight: "bold",
-                              color: "var(--bs-indigo)",
-                              fontSize: "21px",
-                            }}
-                            defaultChecked
-                          />
-                        <label
-                          className="form-check-label"
-                          htmlFor="r_1_1"
-                          style={{
-                            fontWeight: "bold",
-                            color: "var(--bs-indigo)",
-                            fontSize: "21px",
-                          }}
-                        >
-                          Right Answer
-                        </label>
-                      </div>
+                          fontSize: "21px",}}>
+                    <input
+                        type="radio"
+                        name="rightanswer"
+                        value="rightanswer3"
+                        onChange={event => handleFormChange(index, event)}
+                      /> Right Answer
+                      </label>
                     </div>
                   </div>
                   <div
@@ -553,82 +489,23 @@ return (
                     style={{ width: "20%" }}
                   >
                     <div className="d-flex align-items-center">
-                      <input
-                        type="checkbox"
-                        id="r_1_1"
-                        style={{
+                    <label style={{
                           fontWeight: "bold",
                           color: "var(--bs-indigo)",
-                          fontSize: "21px",
-                        }}
-                      />
-                      <div className="form-check">
-                          <input
-                            className="form-check-input"
-                            type="radio"
-                            name="rightanswer"
-                            value={input.rightanswer}
-                            onChange={event => handleFormChange(index, event)}
-                            style={{
-                              fontWeight: "bold",
-                              color: "var(--bs-indigo)",
-                              fontSize: "21px",
-                            }}
-                            defaultChecked
-                          />
-                        <label
-                          className="form-check-label"
-                          htmlFor="r_1_1"
-                          style={{
-                            fontWeight: "bold",
-                            color: "var(--bs-indigo)",
-                            fontSize: "21px",
-                          }}
-                        >
-                          Right Answer
-                        </label>
-                      </div>
+                          fontSize: "21px",}}>  
+                    <input
+                        type="radio"
+                        name="rightanswer"
+                        value="rightanswer4"
+                        onChange={event => handleFormChange(index, event)}
+
+                      /> Right Answer
+                      </label>
                     </div>
                   </div>
                 </div>
               </div>
               <div style={{ marginBottom: "19px", marginTop: "6px" }}></div>
-              <button
-                    className="btn"
-                    type="button"
-                    style={{
-                      background: "#c90101",
-                      fontWeight: "bold",
-                      color: "rgb(255,255,255)",
-                    }}
-                  >
-                    Remove answer
-                  </button>
-            </div>
-
-              <div>
-                
-                <div
-                  className="d-flex d-xxl-flex justify-content-center justify-content-xxl-center"
-                  style={{
-                    paddingLeft: "13px",
-                    marginTop: "22px",
-                    marginRight: "70px",
-                  }}
-                >
-                  <button
-                    className="btn"
-                    type="button"
-                    style={{
-                      background: "#00a210",
-                      fontWeight: "bold",
-                      color: "rgb(255,255,255)",
-                    }}
-                  >
-                    Add answer
-                  </button>
-                  
-                </div>
             </div>
         </div>
             </div>
@@ -682,7 +559,7 @@ return (
               <button
                 className="btn"
                 type="button"
-                onClick={() => alert(inputFields)}
+                onClick={submit}
                 style={{
                   background: "#ffffff",
                   height: "60px",
