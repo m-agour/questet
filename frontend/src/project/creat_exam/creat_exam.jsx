@@ -5,6 +5,7 @@ import Answer from "./answer";
 function Creat_exam(){
   const [inputFields, setInputFields] = useState([
     { quistion: '', image: '',SandM: '' ,answer1: '',answer2: '',answer3: '',answer4: '',rightanswer:'' }
+
   ])
   const [title, settitle] = useState('')
   const handletitleChange = event=> {
