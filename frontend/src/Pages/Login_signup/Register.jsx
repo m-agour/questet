@@ -109,7 +109,7 @@ export default function Register(){
                                 class="button-49"
                                 role="button"
                               >
-                                Submit
+                                register
                               </button>
                             </div>
                           </div>

@@ -3,8 +3,8 @@ import { NavLink as Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Nav = styled.nav`
-    background: white;
-    height: 50px;
+    background-color: #ffff;
+    height: 60px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -16,9 +16,10 @@ export const NavLogo = styled(Link)`
   font-size: 2rem;
   text-decoration: none;
   position: absolute;
-
   right: 1300px;
-
+  &:hover {
+    color: black;
+  }
 
 `;
 
@@ -28,6 +29,7 @@ align-items: center;
 text-decoration: none;
 padding: 0 1rem;
 height: 100%;
+font-size: 25px;
 cursor: pointer;
 &:hover {
   color: black;
@@ -73,19 +75,26 @@ export const NavBtn = styled.nav`
 `;
 
 export const NavBtnLink = styled(Link)`
-  border-radius: 4px;
-  background: transparent;
-  padding: 10px 22px;
-
-  outline: none;
-  border: 1px solid #fff;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  text-decoration: none;
-  margin-left: 24px;
-  &:hover {
-    transition: all 0.2s ease-in-out;
-    background: #fff;
-    color: #808080;
-  }
+display: flex;
+align-items: center;
+text-decoration: none;
+padding: 0 1rem;
+height: 100%;
+font-size: 25px;
+cursor: pointer;
+&:hover {
+  color: black;
+}
+`;
+export const NavProfileLink = styled(Link)`
+display: flex;
+align-items: center;
+text-decoration: none;
+padding: 0 1rem;
+height: 100%;
+font-size: 25px;
+cursor: pointer;
+&:hover {
+  color: black;
+}
 `;

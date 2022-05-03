@@ -467,7 +467,7 @@ label {
 .btn2_on-hover {
   transition: all 0.3s ease 0s;
   position: relative;
-  left: 1000px;
+  left: 800px;
   border: 5px solid #082465;
 }
 

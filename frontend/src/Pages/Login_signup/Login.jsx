@@ -3,6 +3,7 @@ import React from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import { login, isLoggedIn } from "../../services/authService";
 import Register from "./Register";
+import Topbar from "../../component/topbar/topbar";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -24,6 +25,8 @@ export default function Login() {
   return isLoggedIn() ? (
     <Navigate to="/" />
   ) : (
+    <>
+    <Topbar/>
       <div>
         <link
           rel="stylesheet"
@@ -86,7 +89,7 @@ export default function Login() {
                                 class="button-49"
                                 type="submit"
                               >
-                                Submit
+                                Log In
                               </button>
                               <p className="mb-0 mt-4 text-center">
                                 <a href="#0" className="link">
@@ -106,6 +109,7 @@ export default function Login() {
           </div>
         </div>
       </div>
+      </>
     );
   }
 

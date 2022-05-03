@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import "./css/style.css" 
 import "./css/bootstrap.css" 
+import Topbar from '../../component/topbar/topbar';
 
 
 
@@ -8,6 +9,8 @@ class Home extends Component {
     
     render() { 
         return (
+          <>
+          <Topbar/>
                     <div>
                       <meta charSet="utf-8" />
                       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -35,16 +38,6 @@ class Home extends Component {
                               <button  >Next</button>
                               </div>
                               <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                                <div className="d-flex ml-auto flex-column flex-lg-row align-items-center">
-                                  <ul className="navbar-nav  ">                                    
-                                    <li className="nav-item">
-                                      <a  href='/profile'>
-                                        <button className="btn4_on-hover " role="button"  >Profile
-                                        </button>
-                                        </a>
-                                    </li>
-                                  </ul>
-                                </div>
                               </div></nav>
                           </div>
                         </header>
@@ -143,7 +136,7 @@ class Home extends Component {
                       {/* google map js */}
                       {/* end google map js */}
                     </div>
-
+        </> 
         );
     }
 }

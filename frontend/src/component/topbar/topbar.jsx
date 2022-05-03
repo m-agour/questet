@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { useNavigate, Navigate } from "react-router-dom";
 import {
     Nav,
     NavLogo,
@@ -12,14 +12,16 @@ import {
 import {logout,isLoggedIn}from "../../services/authService"
 
 export default function Topbar(){
-    const handel_logout =()=>{
+    const navigate = useNavigate();
+    const handel_logout =(event)=>{
+        event.preventDefault();
         logout()
-
+        navigate("/")
     }
     return (
         <>
            <Nav>
-            <NavLogo to="/">
+            <NavLogo activeStyle={{ color: 'black' }} to="/">
                Quest
             </NavLogo>
             <Bars />
@@ -29,7 +31,9 @@ export default function Topbar(){
             {!isLoggedIn()&& (<NavBtn>
                     <NavBtnLink to="/auth">Log In</NavBtnLink>                
                 </NavBtn>)}
-
+                {isLoggedIn()&& (<NavBtn>
+                    <NavBtnLink to="/Profile">Profile</NavBtnLink>                
+                </NavBtn>)}
                 {isLoggedIn()&& (<NavLink onClick={handel_logout}
                   to="/" 
                   activeStyle={{ color: 'black' }}
