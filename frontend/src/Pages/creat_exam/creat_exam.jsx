@@ -1,19 +1,26 @@
 import React, { Component, useState } from "react";
-import Answer from "./answer";
+import Topbar from "../../component/topbar/topbar";
+// import Answer from "./answer";
 
 
 function Creat_exam(){
   const [inputFields, setInputFields] = useState([
-    { quistion: '', image: '',SandM: '' ,answer: '',title:'' }
+    { quistion: '', image: '',SandM: '' ,answer1: '',answer2: '',answer3: '',answer4: '',rightanswer:'' }
+
   ])
-  const handleFormChange = (index, event) => {
+  const [title, settitle] = useState('')
+  const handletitleChange = event=> {
+    settitle({titleval:event.target.value});
+    console.log(title)
+  };
+  const handleFormChange = (index,event) => {
     let data = [...inputFields];
     data[index][event.target.name] = event.target.value;
     setInputFields(data);
     console.log(data)
  }
   const addFields = () => {
-    let newfield = { quistion: '', image: '',SandM: '' ,answer: '' }
+    let newfield = { quistion: '', image: '',SandM: '' ,answer1: '',answer2: '',answer3: '',answer4: '',rightanswer:'' }
   
     setInputFields([...inputFields, newfield])
   }
@@ -22,7 +29,10 @@ function Creat_exam(){
     data.splice(index, 1)
     setInputFields(data)
   }
-
+  const submit = (e) => {
+    e.preventDefault();
+    console.log(inputFields,title)
+}
 return (
       
     <div>
@@ -55,81 +65,12 @@ return (
         href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css"
       />
       <link rel="stylesheet" href="assets/css/vanilla-zoom.min.css" />
-      <nav
-        className="navbar navbar-light navbar-expand-lg sticky-top shadow-lg clean-navbar"
-        style={{
-          background: "#ffffff",
-          paddingTop: "12.2px",
-          paddingBottom: "7.2px",
-          paddingRight: "0px",
-          paddingLeft: "23px",
-          borderWidth: "6px",
-        }}
-      >
-        <div className="container-fluid">
-          <a
-            className="navbar-brand logo"
-            href="#"
-            style={{
-              color: "#DF2E2E",
-              fontFamily: '"Hurme Geometric Sans 1"',
-              fontWeight: "bold",
-              fontSize: "33px",
-              padding: "0px",
-              letterSpacing: "1px",
-            }}
-          >
-            Questet
-          </a>
-          <button
-            data-bs-toggle="collapse"
-            className="navbar-toggler"
-            data-bs-target="#navcol-1"
-          >
-            <span className="visually-hidden">Toggle navigation</span>
-            <span className="navbar-toggler-icon" />
-          </button>
-          <div className="collapse navbar-collapse" id="navcol-1">
-            <ul className="navbar-nav ms-auto">
-              <li className="nav-item" style={{ paddingRight: "145px" }}>
-                <div />
-              </li>
-              <li className="nav-item">
-                <button
-                  className="btn"
-                  type="button"
-                  style={{
-                    fontFamily: '"Hurme Geometric Sans 1"',
-                    fontWeight: "bold",
-                    color: "#D82148",
-                    letterSpacing: "0px",
-                  }}
-                >
-                  Sign in
-                </button>
-              </li>
-              <li className="nav-item">
-                <button
-                  className="btn"
-                  type="button"
-                  style={{
-                    background: "#ffc700",
-                    fontFamily: '"Hurme Geometric Sans 1"',
-                    fontWeight: "bold",
-                  }}
-                >
-                  Sign up
-                </button>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+      <Topbar/>
       <main className="page landing-page" style={{ paddingTop: "0px" }}>
         <section
           className="shadow-lg"
           style={{ background: "#3c65c4", paddingBottom: "62px" }}
-        >
+        > 
           <h1
             style={{
               paddingLeft: "0px",
@@ -141,7 +82,8 @@ return (
             Title:
             <input
               type="text"
-
+              name="title"
+              onChange={handletitleChange}
               style={{
                 marginLeft: "17px",
                 width: "633.4px",
@@ -155,7 +97,6 @@ return (
               required
             />
           </h1>
-
           <div  className="container">
           <form>
         {inputFields.map((input, index) => {
@@ -277,7 +218,229 @@ return (
                   </label>
                 </div>
               </div>
-              <Answer /> 
+              <div>
+            <h4
+                className="card-title"
+                style={{
+                  fontSize: "24px",
+                  fontWeight: "bold",
+                  paddingBottom: "12px",
+                  marginBottom: "0px",
+                  marginLeft: "6px",
+                }}
+              >
+                Answers:
+              </h4>
+
+              <div >
+              <div style={{ marginBottom: "19px", marginTop: "6px" }}>
+                <div className="row">
+                  <div
+                    className="col d-flex justify-content-center align-items-center"
+                    style={{ width: "80%", minWidth: "80%", maxWidth: "80%" }}
+                  >
+                    <label
+                      className="form-label"
+                      style={{
+                        fontWeight: "bold",
+                        marginLeft: "11px",
+                        marginTop: "5px",
+                        fontSize: "23px",
+                        color: "rgb(63,70,78)",
+                      }}
+                    >
+                
+                    </label>
+                    <input
+                      type="text"
+                      name="answer1"
+                      value={input.answer1}
+                      onChange={event => handleFormChange(index, event)}
+                      style={{
+                        width: "95%",
+                        height: "46px",
+                        minWidth: "50%",
+                        fontSize: "22px",
+                        paddingLeft: "11px",
+                        paddingTop: "5px",
+                      }}
+                    />
+                    
+                  </div>
+                  <div
+                    className="col d-flex align-items-center"
+                    style={{ width: "20%" }}
+                  >
+                    <div className="d-flex align-items-center">
+                    <label style={{
+                          fontWeight: "bold",
+                          color: "var(--bs-indigo)",
+                          fontSize: "21px",}}>
+                      <input
+                        type="radio"
+                        name="rightanswer"
+                        value="rightanswer1"
+                        onChange={event => handleFormChange(index, event)}
+                      /> Right Answer
+                      </label>
+                    </div>
+                  </div>
+                  <div
+                    className="col d-flex justify-content-center align-items-center"
+                    style={{ width: "80%", minWidth: "80%", maxWidth: "80%" }}
+                  >
+                    <label
+                      className="form-label"
+                      style={{
+                        fontWeight: "bold",
+                        marginLeft: "11px",
+                        marginTop: "5px",
+                        fontSize: "23px",
+                        color: "rgb(63,70,78)",
+                      }}
+                    >
+                
+                    </label>
+                    <input
+                      type="text"
+                      name="answer2"
+                      value={input.answer2}
+                      onChange={event => handleFormChange(index, event)}
+                      style={{
+                        width: "95%",
+                        height: "46px",
+                        minWidth: "50%",
+                        fontSize: "22px",
+                        paddingLeft: "11px",
+                        paddingTop: "5px",
+                      }}
+                    />
+                    
+                  </div>
+                  <div
+                    className="col d-flex align-items-center"
+                    style={{ width: "20%" }}
+                  >
+                    <div className="d-flex align-items-center">
+                    <label style={{
+                          fontWeight: "bold",
+                          color: "var(--bs-indigo)",
+                          fontSize: "21px",}}>
+                      <input
+                        type="radio"
+                        name="rightanswer"
+                        value="rightanswer2"
+                        onChange={event => handleFormChange(index, event)}
+                      /> Right Answer
+                      </label>
+                    </div>
+                  </div>
+                  <div
+                    className="col d-flex justify-content-center align-items-center"
+                    style={{ width: "80%", minWidth: "80%", maxWidth: "80%" }}
+                  >
+                    <label
+                      className="form-label"
+                      style={{
+                        fontWeight: "bold",
+                        marginLeft: "11px",
+                        marginTop: "5px",
+                        fontSize: "23px",
+                        color: "rgb(63,70,78)",
+                      }}
+                    >
+                
+                    </label>
+                    <input
+                      type="text"
+                      name="answer3"
+                      value={input.answer3}
+                      onChange={event => handleFormChange(index, event)}
+                      style={{
+                        width: "95%",
+                        height: "46px",
+                        minWidth: "50%",
+                        fontSize: "22px",
+                        paddingLeft: "11px",
+                        paddingTop: "5px",
+                      }}
+                    />
+                    
+                  </div>
+                  <div
+                    className="col d-flex align-items-center"
+                    style={{ width: "20%" }}
+                  >
+                    <div className="d-flex align-items-center">
+                    <label style={{
+                          fontWeight: "bold",
+                          color: "var(--bs-indigo)",
+                          fontSize: "21px",}}>
+                    <input
+                        type="radio"
+                        name="rightanswer"
+                        value="rightanswer3"
+                        onChange={event => handleFormChange(index, event)}
+                      /> Right Answer
+                      </label>
+                    </div>
+                  </div>
+                  <div
+                    className="col d-flex justify-content-center align-items-center"
+                    style={{ width: "80%", minWidth: "80%", maxWidth: "80%" }}
+                  >
+                    <label
+                      className="form-label"
+                      style={{
+                        fontWeight: "bold",
+                        marginLeft: "11px",
+                        marginTop: "5px",
+                        fontSize: "23px",
+                        color: "rgb(63,70,78)",
+                      }}
+                    >
+                
+                    </label>
+                    <input
+                      type="text"
+                      name="answer4"
+                      value={input.answer4}
+                      onChange={event => handleFormChange(index, event)}
+                      style={{
+                        width: "95%",
+                        height: "46px",
+                        minWidth: "50%",
+                        fontSize: "22px",
+                        paddingLeft: "11px",
+                        paddingTop: "5px",
+                      }}
+                    />
+                    
+                  </div>
+                  <div
+                    className="col d-flex align-items-center"
+                    style={{ width: "20%" }}
+                  >
+                    <div className="d-flex align-items-center">
+                    <label style={{
+                          fontWeight: "bold",
+                          color: "var(--bs-indigo)",
+                          fontSize: "21px",}}>  
+                    <input
+                        type="radio"
+                        name="rightanswer"
+                        value="rightanswer4"
+                        onChange={event => handleFormChange(index, event)}
+
+                      /> Right Answer
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div style={{ marginBottom: "19px", marginTop: "6px" }}></div>
+            </div>
+        </div>
             </div>
           </div>
         </div>
@@ -329,7 +492,7 @@ return (
               <button
                 className="btn"
                 type="button"
-                onClick={() => alert(inputFields)}
+                onClick={submit}
                 style={{
                   background: "#ffffff",
                   height: "60px",

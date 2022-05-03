@@ -81,9 +81,9 @@ exports.createUser = async(req, res) => {
         // validating birthdate
         let birthdate = req.body.BOD;
         console.log(req.body);
-        if (!birthdate || validator.isAfter(birthdate))
-            return res.status(400).json({ success: false, data: "wrong birth date." });
-        userData.DOB = validator.toDate(birthdate);
+        // if (!birthdate || validator.isAfter(birthdate))
+        //     return res.status(400).json({ success: false, data: "wrong birth date." });
+        // userData.DOB = validator.toDate(birthdate);
         userData.country = req.body.country;
         userData.timeZone = +2;
         userData.gender = req.body.gender;
