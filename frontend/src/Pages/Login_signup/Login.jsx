@@ -1,70 +1,29 @@
-import React, { Component } from "react";
 import "./style.css";
-import axios from "axios";
-import Cookies from "js-cookie";
+import React from "react";
+import { useNavigate, Navigate } from "react-router-dom";
+import { login, isLoggedIn } from "../../services/authService";
+import Register from "./Register";
 
-class Login extends React.Component {
-  constructor(props) {
-    super(props);
-    // this.handleSubmit = this.handleSubmit.bind(this);
-    this.props = props;
-    this.email = React.createRef();
-    this.password = React.createRef();
-    this.loginEmail = React.createRef();
-    this.loginPassword = React.createRef();
-    this.firstName = React.createRef();
-    if (Cookies.get("auth")) this.props.history.push("/");
-  }
+export default function Login() {
+  const navigate = useNavigate();
 
-  login = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    let data = {
-      email: this.loginEmail.current.value,
-      password: this.loginPassword.current.value,
+    let { logemail,logpass } = document.forms[0];
+
+    let userData = {
+      email: logemail.value,
+      password: logpass.value,
     };
-    console.log(data);
-    axios.post("http://127.0.0.1:5000/api/auth/login", data).then(
-      (response) => {
-        console.log(response);
-        this.props.history.push("/");
-        if (Cookies.get("redirect")) {
-          console.log(Cookies.get("redirect"));
-          this.props.history.push(Cookies.get("redirect"));
-          Cookies.set("redirect", null);
-        } else this.props.history.push("/");
-        Cookies.set("auth", response.data.data.id);
-      },
-      (error) => {
-        this.props.history.push("/auth");
-        console.log(error);
-      }
-    );
+
+    let res = await login(userData);
+    if (res) navigate("/");
   };
 
-  signup = (event) => {
-    let data = {
-      email: this.email.current.value,
-      firstName: this.firstName.current.value,
-      password: this.password.current.value,
-    };
-    event.preventDefault();
-
-    console.log(data);
-    axios.post("http://127.0.0.1:5000/api/user", data).then(
-      (response) => {
-        console.log(response);
-        this.props.history.push("/home");
-      },
-      (error) => {
-        console.log(error);
-        this.props.history.push("/");
-      }
-    );
-  };
-
-  render() {
-    return (
+  return isLoggedIn() ? (
+    <Navigate to="/" />
+  ) : (
       <div>
         <link
           rel="stylesheet"
@@ -99,13 +58,12 @@ class Login extends React.Component {
                             <h4 className="mb-4 pb-3">
                               <span>Log in </span>
                             </h4>
-                            <form onSubmit={this.login}>
+                            <form onSubmit={handleSubmit}>
                               <div className="form-group">
                                 <input
                                   type="email"
                                   name="logemail"
                                   className="form-style"
-                                  ref={this.loginEmail}
                                   placeholder="Your Email"
                                   id="logemail"
                                   autoComplete="off"
@@ -116,7 +74,6 @@ class Login extends React.Component {
                                 <input
                                   type="password"
                                   name="logpass"
-                                  ref={this.loginPassword}
                                   className="form-style"
                                   placeholder="Your Password"
                                   id="logpass"
@@ -140,61 +97,7 @@ class Login extends React.Component {
                           </div>
                         </div>
                       </div>
-                      <div className="card-back">
-                        <form onSubmit={this.signup}>
-                          <div className="center-wrap">
-                            <div className="section text-center">
-                              <h4 className="mb-4 pb-3">
-                                <span>Sign Up</span>
-                              </h4>
-                              <div className="form-group">
-                                <input
-                                  type="text"
-                                  name="logname"
-                                  className="form-style"
-                                  placeholder="Your Full Name"
-                                  ref={this.firstName}
-                                  id="logname"
-                                  autoComplete="off"
-                                />
-                                <i className="input-icon uil uil-user" />
-                              </div>
-                              <div className="form-group mt-2">
-                                <input
-                                  type="email"
-                                  name="logemail"
-                                  className="form-style"
-                                  placeholder="Your Email"
-                                  ref={this.email}
-                                  id="logemail"
-                                  autoComplete="off"
-                                />
-                                <i className="input-icon uil uil-at" />
-                              </div>
-                              <div className="form-group mt-2">
-                                <input
-                                  type="password"
-                                  name="logpass"
-                                  className="form-style"
-                                  minLength={8}
-                                  ref={this.password}
-                                  placeholder="Your Password"
-                                  id="logpass"
-                                  autoComplete="off"
-                                />
-                                <i className="input-icon uil uil-lock-alt" />
-                              </div>
-                              <button
-                                herf="/home"
-                                class="button-49"
-                                role="button"
-                              >
-                                Submit
-                              </button>
-                            </div>
-                          </div>
-                        </form>
-                      </div>
+                      <Register/>
                     </div>
                   </div>
                 </div>
@@ -205,6 +108,6 @@ class Login extends React.Component {
       </div>
     );
   }
-}
 
-export default Login;
+
+

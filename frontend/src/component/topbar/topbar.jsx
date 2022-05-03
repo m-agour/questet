@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
     Nav,
     NavLogo,
@@ -8,13 +9,13 @@ import {
     NavBtn,
     NavBtnLink,
 } from "./navbar";
+import {logout,isLoggedIn}from "../../services/authService"
+
 export default function Topbar(){
+    const handel_logout =()=>{
+        logout()
 
-
-
-
-
-
+    }
     return (
         <>
            <Nav>
@@ -25,15 +26,16 @@ export default function Topbar(){
 
             <NavMenu>
 
-                <NavBtn>
+            {!isLoggedIn()&& (<NavBtn>
                     <NavBtnLink to="/auth">Log In</NavBtnLink>                
-                </NavBtn>
-                <NavLink 
-                  to="#" 
+                </NavBtn>)}
+
+                {isLoggedIn()&& (<NavLink onClick={handel_logout}
+                  to="/" 
                   activeStyle={{ color: 'black' }}
                 >
                     Log Out
-                </NavLink>
+                </NavLink>)}
             </NavMenu> 
            </Nav> 
         </>
