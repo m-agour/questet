@@ -125,7 +125,7 @@ return (
                   marginTop: "19px",
                 }}
               >
-                Question:&nbsp;
+                Question :&nbsp; 
                 <textarea
                   className="d-flex align-items-center"
                   name="quistion"
@@ -231,9 +231,9 @@ return (
               >
                 Answers:
               </h4>
-
               <div >
               <div style={{ marginBottom: "19px", marginTop: "6px" }}>
+              <ol>
                 <div className="row">
                   <div
                     className="col d-flex justify-content-center align-items-center"
@@ -244,12 +244,14 @@ return (
                       style={{
                         fontWeight: "bold",
                         marginLeft: "11px",
+                        height: "46px",
                         marginTop: "5px",
                         fontSize: "23px",
                         color: "rgb(63,70,78)",
                       }}
+                        
                     >
-                
+                      <li  style={{  fontSize:"26px"}}></li>
                     </label>
                     <input
                       type="text"
@@ -265,7 +267,6 @@ return (
                         paddingTop: "5px",
                       }}
                     />
-                    
                   </div>
                   <div
                     className="col d-flex align-items-center"
@@ -294,12 +295,13 @@ return (
                       style={{
                         fontWeight: "bold",
                         marginLeft: "11px",
+                        height: "46px",
                         marginTop: "5px",
                         fontSize: "23px",
                         color: "rgb(63,70,78)",
                       }}
                     >
-                
+                   <li  style={{  fontSize:"26px"}}></li>
                     </label>
                     <input
                       type="text"
@@ -345,11 +347,12 @@ return (
                         fontWeight: "bold",
                         marginLeft: "11px",
                         marginTop: "5px",
+                        height: "46px",
                         fontSize: "23px",
                         color: "rgb(63,70,78)",
                       }}
                     >
-                
+                    <li  style={{  fontSize:"26px"}}></li>
                     </label>
                     <input
                       type="text"
@@ -394,12 +397,13 @@ return (
                       style={{
                         fontWeight: "bold",
                         marginLeft: "11px",
+                        height: "46px",
                         marginTop: "5px",
                         fontSize: "23px",
                         color: "rgb(63,70,78)",
                       }}
                     >
-                
+                   <li  style={{  fontSize:"26px"}}></li>
                     </label>
                     <input
                       type="text"
@@ -437,11 +441,13 @@ return (
                     </div>
                   </div>
                 </div>
+                </ol>
               </div>
               <div style={{ marginBottom: "19px", marginTop: "6px" }}></div>
             </div>
         </div>
             </div>
+            
           </div>
         </div>
         <button
