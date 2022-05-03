@@ -4,7 +4,7 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import Login from "./Pages/Login";
+import Login from "./Pages/Login_signup/Login";
 import Home from "./Pages/home/index";
 import Profile from "./Pages/profile/profile";
 import Creat_exam from "./Pages/creat_exam/creat_exam";

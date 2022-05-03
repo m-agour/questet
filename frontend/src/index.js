@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import Login from './Pages/Login.jsx';
 import   {BrowserRouter as Router, Route ,Switch, link,redirect } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 

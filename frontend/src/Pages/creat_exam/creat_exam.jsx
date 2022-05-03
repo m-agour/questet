@@ -1,5 +1,6 @@
 import React, { Component, useState } from "react";
-import Answer from "./answer";
+import Topbar from "../../component/topbar/topbar";
+// import Answer from "./answer";
 
 
 function Creat_exam(){
@@ -64,76 +65,7 @@ return (
         href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css"
       />
       <link rel="stylesheet" href="assets/css/vanilla-zoom.min.css" />
-      <nav
-        className="navbar navbar-light navbar-expand-lg sticky-top shadow-lg clean-navbar"
-        style={{
-          background: "#ffffff",
-          paddingTop: "12.2px",
-          paddingBottom: "7.2px",
-          paddingRight: "0px",
-          paddingLeft: "23px",
-          borderWidth: "6px",
-        }}
-      >
-        <div className="container-fluid">
-          <a
-            className="navbar-brand logo"
-            href="#"
-            style={{
-              color: "#DF2E2E",
-              fontFamily: '"Hurme Geometric Sans 1"',
-              fontWeight: "bold",
-              fontSize: "33px",
-              padding: "0px",
-              letterSpacing: "1px",
-            }}
-          >
-            Questet
-          </a>
-          <button
-            data-bs-toggle="collapse"
-            className="navbar-toggler"
-            data-bs-target="#navcol-1"
-          >
-            <span className="visually-hidden">Toggle navigation</span>
-            <span className="navbar-toggler-icon" />
-          </button>
-          <div className="collapse navbar-collapse" id="navcol-1">
-            <ul className="navbar-nav ms-auto">
-              <li className="nav-item" style={{ paddingRight: "145px" }}>
-                <div />
-              </li>
-              <li className="nav-item">
-                <button
-                  className="btn"
-                  type="button"
-                  style={{
-                    fontFamily: '"Hurme Geometric Sans 1"',
-                    fontWeight: "bold",
-                    color: "#D82148",
-                    letterSpacing: "0px",
-                  }}
-                >
-                  Sign in
-                </button>
-              </li>
-              <li className="nav-item">
-                <button
-                  className="btn"
-                  type="button"
-                  style={{
-                    background: "#ffc700",
-                    fontFamily: '"Hurme Geometric Sans 1"',
-                    fontWeight: "bold",
-                  }}
-                >
-                  Sign up
-                </button>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+      <Topbar/>
       <main className="page landing-page" style={{ paddingTop: "0px" }}>
         <section
           className="shadow-lg"
