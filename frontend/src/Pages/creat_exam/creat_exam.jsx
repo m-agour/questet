@@ -1,11 +1,9 @@
 import React, { Component, useState } from "react";
 import Topbar from "../../component/topbar/topbar";
 // import Answer from "./answer";
-
-
-function Creat_exam(){
+export default  function Creat_exam(){
   const [inputFields, setInputFields] = useState([
-    { quistion: '', image: '',SandM: '' ,answer1: '',answer2: '',answer3: '',answer4: '',rightanswer:'' }
+    { quistion: '', image: '', Degree:'',SandM: '' ,answer1: '',answer2: '',answer3: '',answer4: '',rightanswer:'' }
 
   ])
   const [title, settitle] = useState('')
@@ -13,6 +11,21 @@ function Creat_exam(){
     settitle({titleval:event.target.value});
     console.log(title)
   };
+  const [datevalu, setValue] = useState('');
+  function onChangeDateTime(sev) {
+  if (!sev.target['validity'].valid) return;
+  const sdt= sev.target['value'] + ':00Z';
+  setValue(sdt);
+  console.log(sdt)
+  }
+  const [dateEndvalu, setEndValue] = useState('');
+  function onChangeEndDateTime(Eev) {
+  if (!Eev.target['validity'].valid) return;
+  const edt= Eev.target['value'] + ':00Z';
+  setEndValue(edt);
+  console.log(edt)
+  }
+  
   const handleFormChange = (index,event) => {
     let data = [...inputFields];
     data[index][event.target.name] = event.target.value;
@@ -31,7 +44,7 @@ function Creat_exam(){
   }
   const submit = (e) => {
     e.preventDefault();
-    console.log(inputFields,title)
+    console.log(inputFields,title,datevalu,dateEndvalu)
 }
 return (
       
@@ -71,6 +84,12 @@ return (
           className="shadow-lg"
           style={{ background: "#3c65c4", paddingBottom: "62px" }}
         > 
+        <div>
+        <h4>Start date and Time:-</h4> <input  value={(datevalu || '').toString().substring(0, 16)} onChange={onChangeDateTime} type="datetime-local" name="datevalu" class="form-control"  />
+        </div>
+        <div>
+        <h4>End date and Time:-</h4> <input  value={(dateEndvalu || '').toString().substring(0, 16)} onChange={onChangeEndDateTime} type="datetime-local" name="datevalu" class="form-control"  />
+        </div>
           <h1
             style={{
               paddingLeft: "0px",
@@ -145,6 +164,36 @@ return (
                 <br />
                 <br />
               </h4>
+              <div className="d-flex justify-content-center align-items-center"
+                style={{ paddingBottom: "19px" }}
+              >
+                <h4
+                 className="d-flex align-items-center card-title"
+                 style={{
+                   fontSize: "24px",
+                   paddingBottom: "0px",
+                   marginBottom: "0px",
+                   fontWeight: "bold",
+                 }}
+                >
+                  Q_Degree:</h4>
+                <input 
+                className="d-flex align-items-center"
+                name="Degree"
+                 value={input.Degree}
+                 onChange={event => handleFormChange(index, event)}
+                 type="text"
+                 style={{
+                  fontSize:"25px",
+                  width: "20%",
+                  marginLeft: "10px",
+                  height: "43.6px",
+                  paddingLeft: "13px",
+                  paddingTop: "4px",
+                  marginRight: "100px"
+                  
+                }} />
+              </div>
               <div
                 className="d-flex justify-content-center align-items-center"
                 style={{ paddingBottom: "19px" }}
@@ -587,5 +636,3 @@ return (
     </div>
   );
 }
-
-export default Creat_exam;
