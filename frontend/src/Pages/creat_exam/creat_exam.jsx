@@ -11,6 +11,17 @@ export default  function Creat_exam(){
     settitle({titleval:event.target.value});
     console.log(title)
   };
+  const [visible, setVisible] = useState(false);
+  const [Exame_Key, setExame_Key] = useState('')
+  const handlekeyChange = key=> {
+    setExame_Key({Keyval:key.target.value});
+    console.log(Exame_Key)
+  };
+  const removeKey = (KeyR) => {
+    let data = [Exame_Key];
+    data.splice(KeyR, 1)
+    setExame_Key(data)
+  }
   const [datevalu, setValue] = useState('');
   function onChangeDateTime(sev) {
   if (!sev.target['validity'].valid) return;
@@ -44,7 +55,7 @@ export default  function Creat_exam(){
   }
   const submit = (e) => {
     e.preventDefault();
-    console.log(inputFields,title,datevalu,dateEndvalu)
+    console.log(inputFields,title,datevalu,dateEndvalu,Exame_Key)
 }
 return (
       
@@ -116,6 +127,22 @@ return (
               required
             />
           </h1>
+          <div>
+           <button className="btn" style={{ border: "3px solid ", background: "white",fontWeight: "bold",fontSize:"20px",width: "7%",marginLeft: "675px"}} onClick={() => setVisible(true)}>Privet</button>
+           <button className="btn" style={{ border: "3px solid ",background: "white",fontWeight: "bold",fontSize:"20px",width: "7%"}}  onClick={() => {setVisible(false); removeKey() }} >Public</button>
+            {visible && <div className="d-flex justify-content-center align-items-center"
+                style={{ paddingBottom: "19px" }}>
+                <h4
+                 className="d-flex align-items-center card-title" style={{fontSize: "24px",color:"white",paddingBottom: "0px",marginBottom: "0px",fontWeight: "bold",}}>Exame_Key:</h4>
+                <input 
+                className="d-flex align-items-center"
+                name="Exame_Key"
+                onChange={handlekeyChange}
+                type="text"
+                placeholder="Type The Q.Degree"
+                style={{fontSize:"20px",width: "20%",marginLeft: "10px",height: "43.6px", paddingLeft: "13px",paddingTop: "4px",marginRight: "100px"}}/>
+              </div>}
+          </div>
           <div  className="container">
           <form>
         {inputFields.map((input, index) => {
@@ -183,15 +210,15 @@ return (
                  value={input.Degree}
                  onChange={event => handleFormChange(index, event)}
                  type="text"
+                 placeholder="Type The Q.Degree"
                  style={{
-                  fontSize:"25px",
+                  fontSize:"20px",
                   width: "20%",
                   marginLeft: "10px",
                   height: "43.6px",
                   paddingLeft: "13px",
                   paddingTop: "4px",
                   marginRight: "100px"
-                  
                 }} />
               </div>
               <div
