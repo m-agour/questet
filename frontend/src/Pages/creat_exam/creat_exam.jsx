@@ -1,6 +1,5 @@
 import React, { Component, useState } from "react";
 import Topbar from "../../component/topbar/topbar";
-// import Answer from "./answer";
 export default  function Creat_exam(){
   const [inputFields, setInputFields] = useState([
     { quistion: '', image: '', Degree:'',SandM: '' ,answer1: '',answer2: '',answer3: '',answer4: '',rightanswer:'' }
