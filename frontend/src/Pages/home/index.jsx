@@ -5,6 +5,8 @@ import Topbar from '../../component/topbar/topbar';
 
 
 
+
+
 class Home extends Component {
     
     render() { 
@@ -68,10 +70,10 @@ class Home extends Component {
                       {/* end header section */}
                       {/* about section */}
                       <section className="about_section layout_padding">
-                        <a href='/create_exam'>
+                        <a  href='/create_exam'>
                          <button type="submit"  className="btn1_on-hover">Create Exam</button>  
                          </a>  
-                         <a href='/take_exam'>
+                         <a href='/auth'>
                          <button type="submit"  className="btn2_on-hover">Take Exam</button>  
                          </a>                                
                         <div className="container">
