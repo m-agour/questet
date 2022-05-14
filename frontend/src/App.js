@@ -21,7 +21,8 @@ export default function App() {
           <Route index  path="/" element={<Home />} />   
           <Route path="/auth" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/create_exam" element={isLoggedIn()?<Creat_exam/>:<Navigate to="/auth"/>}/>
+          <Route path="/create_exam" element={<Creat_exam />} />
+          {/* <Route path="/create_exam" element={isLoggedIn()?<Creat_exam/>:<Navigate to="/auth"/>}/> */}
           <Route path="/take_exam" element={isLoggedIn()?<Take_exam />:<Navigate to="/auth"/>} />
       </Routes>
       </BrowserRouter>

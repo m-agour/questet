@@ -95,10 +95,26 @@ return (
           style={{ background: "#3c65c4", paddingBottom: "62px" }}
         > 
         <div>
-        <h4>Start date and Time:-</h4> <input  value={(datevalu || '').toString().substring(0, 16)} onChange={onChangeDateTime} type="datetime-local" name="datevalu" class="form-control"  />
+        <h4 style={{marginLeft: "17px"}}>Start date and Time:-</h4> <input  value={(datevalu || '').toString().substring(0, 16)} onChange={onChangeDateTime} type="datetime-local" name="datevalu" style={{
+                marginLeft: "17px",
+                width: "633.4px",
+                borderRadius: "10px",
+                height: "49px",
+                fontSize: "23px",
+                color: "rgb(0,0,0)",
+                paddingLeft: "10px",
+              }}  />
         </div>
         <div>
-        <h4>End date and Time:-</h4> <input  value={(dateEndvalu || '').toString().substring(0, 16)} onChange={onChangeEndDateTime} type="datetime-local" name="datevalu" class="form-control"  />
+        <h4 style={{marginLeft: "17px"}}>End date and Time:-</h4> <input  value={(dateEndvalu || '').toString().substring(0, 16)} onChange={onChangeEndDateTime} type="datetime-local" name="datevalu" style={{
+                marginLeft: "17px",
+                width: "633.4px",
+                borderRadius: "10px",
+                height: "49px",
+                fontSize: "23px",
+                color: "rgb(0,0,0)",
+                paddingLeft: "10px",
+              }}  />
         </div>
           <h1
             style={{

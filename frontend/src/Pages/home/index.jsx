@@ -73,7 +73,7 @@ class Home extends Component {
                         <a  href='/create_exam'>
                          <button type="submit"  className="btn1_on-hover">Create Exam</button>  
                          </a>  
-                         <a href='/auth'>
+                         <a href='/take_exam'>
                          <button type="submit"  className="btn2_on-hover">Take Exam</button>  
                          </a>                                
                         <div className="container">
