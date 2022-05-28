@@ -117,13 +117,7 @@ return (
               }}  />
         </div>
           <h1
-            style={{
-              paddingLeft: "0px",
-              paddingTop: "50px",
-              textAlign: "center",
-              color: "rgb(255,255,255)",
-            }}
-          >
+            style={{paddingLeft: "0px",paddingTop: "50px",textAlign: "center", color: "rgb(255,255,255)",}}>
             Title:
             <input
               type="text"
